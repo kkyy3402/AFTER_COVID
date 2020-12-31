@@ -11,6 +11,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+          fontFamily: 'NanumSquareRound'
+      ),
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
@@ -57,9 +60,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return Stack(
       children: [
 
-        Image.asset(
-          "assets/imgs/top_bg.png",
-          fit: BoxFit.fill,
+        Container(
+          height: 300,
+          width: double.infinity,
+          child: Image.asset(
+            "assets/imgs/top_bg.png",
+            fit: BoxFit.fill,
+          ),
         ),
 
         Container(
@@ -106,7 +113,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         width: 300,
                         child: CupertinoTextField(
                           placeholder: "하고싶은 일을 적어주세요",
+                          padding: EdgeInsets.all(12),
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: "NanumSquareRound"
+                          ),
                         )
+
                     ),
 
                     SizedBox(
@@ -131,8 +144,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           width: 150,
                           child: CupertinoTextField(
                             placeholder: "이름을 적어주세요",
+                            padding: EdgeInsets.all(12),
                             style: TextStyle(
-
+                              fontFamily: "NanumSquareRound",
+                              fontSize: 14
                             ),
                           ),
                         ),
@@ -183,7 +198,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text(
                     "💰BILLI",
                     style: TextStyle(
-                        color: Colors.white
+                        color: Colors.white,
+                      fontFamily: "NanumSquareRound",
+                      fontWeight: FontWeight.bold
+
                     ),
                   ),
                 ),
@@ -220,6 +238,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   getBottomView() {
     return Container(
+      margin: EdgeInsets.only(top: 16),
       width: double.infinity,
       height: 500,
       child: Column(
@@ -233,14 +252,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 TextSpan(
                     text: 'nn개',
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         color: Colors.black,
                         fontWeight: FontWeight.bold)),
+
+
                 TextSpan(
                     text: '의 소망이 모여',
                     style: TextStyle(
+                      fontWeight: FontWeight.normal,
                         color: Colors.black,
-                        fontSize: 20)),
+                        fontSize: 18)),
               ],
             ),
           ),
@@ -248,8 +270,12 @@ class _MyHomePageState extends State<MyHomePage> {
           Text(
             "애프터 코로나를 기원합니다.",
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 18,
             ),
+          ),
+
+          SizedBox(
+            height: 16,
           ),
 
           getBottomCardView()
@@ -262,34 +288,43 @@ class _MyHomePageState extends State<MyHomePage> {
   //하단의 그리드 뷰를 불러오는
   getBottomCardView() {
     return Container(
-      padding: EdgeInsets.all(16),
       width: 200,
       height: 200,
       child: Column(
         children: [
 
           Expanded(
-            child: Column(
-              children: [
-
-                Text("코로나 이후",
-                  textAlign: TextAlign.left),
-                Text("어쩌구를"),
-                Text("하고싶어요")
-
-              ],
+            child: Container(
+              padding: EdgeInsets.all(24),
+              width: double.infinity,
+              alignment: Alignment.topLeft,
+              child: Text(
+                "ㅁ나ㅣㅓ아ㅣㅁ너이ㅏㅁ너이ㅏㅁ너이ㅏㅁ너이ㅏ머니아ㅓㅁ니ㅏ어ㅣㅁ너이ㅏㅁ너이ㅏㅁ너이ㅏ먼이ㅏ머니아ㅓㅁ니ㅏ엄니ㅏ어마ㅣ넝미ㅏ너이ㅏㅁ넝ㅁㄴㅇ머낭",
+                style: TextStyle(
+                  fontFamily: "NanumSquareRound",
+                  fontWeight: FontWeight.bold
+                ),
+              ),
             ),
           ),
 
-          Divider(),
+          Container(
+            
+            margin: EdgeInsets.all(12),
+            width: double.infinity,
+            height: 1,
+            color: Colors.grey,
+          ),
 
           Container(
+            margin: EdgeInsets.only(left: 16, bottom:12),
             width: double.infinity,
             child: Text(
-                "by " + cardItemList[0].createdBy,
+              "by " + cardItemList[0].createdBy,
               textAlign: TextAlign.left,
               style: TextStyle(
-
+                  fontSize: 12,
+                  color: Colors.grey
               ),
             ),
           ),
