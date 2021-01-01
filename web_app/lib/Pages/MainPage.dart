@@ -133,10 +133,17 @@ class _MainPageState extends State<MainPage> {
         Container(
           height: 400,
           width: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [Colors.blue, Colors.red]),
+          ),
+          /*
           child: Image.asset(
             "assets/imgs/top_bg.png",
             fit: BoxFit.fill,
-          ),
+          ),*/
         ),
 
         Container(
