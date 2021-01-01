@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: "After Corona-19.",
       theme: ThemeData(
           fontFamily: 'NanumSquareRound'
       ),

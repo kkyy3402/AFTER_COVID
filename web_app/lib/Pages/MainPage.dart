@@ -26,30 +26,78 @@ class _MainPageState extends State<MainPage> {
   List<CardItemModel> cardItemList = <CardItemModel>[];
   int _testCnt = 0;
 
+  int _maxContentLength = 140;
+  int _maxAuthorLength = 14;
+
+  int _currentContentTextLength = 0;
+  int _currentAuthorTextLength = 0;
+
+  final ScrollController _scrollController = ScrollController();
   TextEditingController _contentTextEditingController;
   TextEditingController _authorTextEditingController;
 
-  //Timer _timerForCounter;
+  Timer _contentUpdateCounter;
 
   //User-Agent체크를 위한 변수들
   final String appleType = "apple";
   final String androidType = "android";
   final String desktopType = "desktop";
 
+  bool _screenOnTop = true;
+
   @override
   void initState() {
     super.initState();
 
     _contentTextEditingController = TextEditingController();
+    _contentTextEditingController.addListener(() {
+      setState(() {
+        _currentContentTextLength = _contentTextEditingController.text.length;
+      });
+
+    });
     _authorTextEditingController = TextEditingController();
+    _authorTextEditingController.addListener(() {
+      setState(() {
+        _currentAuthorTextLength = _authorTextEditingController.text.length;
+      });
+
+    });
+
     getItemInfosFromSvr();
 
+    initScrollListener();
+    initTimers();
+
+  }
+
+  @override
+  void dispose() {
+    _contentTextEditingController.dispose();
+    _authorTextEditingController.dispose();
+    _contentUpdateCounter.cancel();
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: AnimatedOpacity(
+        opacity: _screenOnTop ? 0.0 : 1.0,
+        duration: Duration(milliseconds: 300),
+        child: FloatingActionButton(
+          child: Icon(
+            Icons.arrow_upward_rounded,
+            color: Colors.white,
+          ),
+          onPressed: (){
+            _scrollController.animateTo(0.0, duration: Duration(milliseconds: 1000), curve: Curves.linearToEaseOut);
+          },
+        ),
+      ),
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Scrollbar(
           child: Container(
               child: Column(
@@ -81,7 +129,7 @@ class _MainPageState extends State<MainPage> {
       children: [
 
         Container(
-          height: 300,
+          height: 400,
           width: double.infinity,
           child: Image.asset(
             "assets/imgs/top_bg.png",
@@ -92,7 +140,7 @@ class _MainPageState extends State<MainPage> {
         Container(
             width: double.infinity,
             alignment: Alignment.center,
-            height: 300,
+            height: 400,
             child: Stack(
               children: [
 
@@ -114,12 +162,14 @@ class _MainPageState extends State<MainPage> {
                               text: '😷 코로나',
                               style: TextStyle(
                                   fontSize: 20,
+                                  fontFamily: "NanumSquareRound",
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold)),
                           TextSpan(
                               text: '가 끝나면 나는 당장',
                               style: TextStyle(
                                 fontSize: 20,
+                                fontFamily: "NanumSquareRound",
                                 color: Colors.white,)),
                         ],
                       ),
@@ -131,9 +181,12 @@ class _MainPageState extends State<MainPage> {
 
                     Container(
                         width: 300,
+                        height: 70,
                         child: CupertinoTextField(
                           controller: _contentTextEditingController,
+                          maxLength: _maxContentLength,
                           placeholder: "하고싶은 일을 적어주세요",
+                          maxLines: 5,
                           padding: EdgeInsets.all(12),
                           style: TextStyle(
                               fontSize: 14,
@@ -141,6 +194,22 @@ class _MainPageState extends State<MainPage> {
                           ),
                         )
 
+                    ),
+
+                    SizedBox(
+                      height: 15,
+                    ),
+
+                    Container(
+                      width: 300,
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                          "($_currentContentTextLength/$_maxContentLength)",
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.white
+                        ),
+                      ),
                     ),
 
                     SizedBox(
@@ -164,12 +233,26 @@ class _MainPageState extends State<MainPage> {
                         Container(
                           width: 150,
                           child: CupertinoTextField(
+                            maxLength: _maxAuthorLength,
                             controller: _authorTextEditingController,
                             placeholder: "이름을 적어주세요",
                             padding: EdgeInsets.all(12),
                             style: TextStyle(
                                 fontFamily: "NanumSquareRound",
                                 fontSize: 14
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(width: 15),
+
+                        Container(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            "($_currentAuthorTextLength/$_maxAuthorLength)",
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.white
                             ),
                           ),
                         ),
@@ -272,7 +355,7 @@ class _MainPageState extends State<MainPage> {
           SizedBox(height: 32),
 
           AnimatedFlipCounter(
-            duration: Duration(milliseconds: 500),
+            duration: Duration(milliseconds: 1000),
             value: cardItemList.length, /* pass in a number like 2014 */
             color: Colors.black,
             size: 50,
@@ -480,9 +563,9 @@ class _MainPageState extends State<MainPage> {
               children: [
                 for (int rowCnt = 0 ; rowCnt < columnCnt ; rowCnt++)
                   cardItemList.length > columnIdx * columnCnt + rowCnt?
-                    getBottomCardView(
-                        "${cardItemList[columnIdx * columnCnt + rowCnt].createdBy}",
-                        "${cardItemList[columnIdx * columnCnt + rowCnt].contents}") : Container()
+                  getBottomCardView(
+                      "${cardItemList[columnIdx * columnCnt + rowCnt].createdBy}",
+                      "${cardItemList[columnIdx * columnCnt + rowCnt].contents}") : Container()
 
               ]),
 
@@ -515,8 +598,8 @@ class _MainPageState extends State<MainPage> {
 
   void reqInsertDiaryToSvr() async{
     CardItemModel item = CardItemModel(
-      contents: _contentTextEditingController.text,
-      createdBy: _authorTextEditingController.text
+        contents: _contentTextEditingController.text,
+        createdBy: _authorTextEditingController.text
     );
     bool result = await NetworkManager.getInstance.insertItem(item);
     //등록 성공하면 아이템을 다시 불러온다.
@@ -527,6 +610,36 @@ class _MainPageState extends State<MainPage> {
     }else{
 
     }
+  }
+
+
+
+  void initScrollListener() {
+    _scrollController.addListener(() {
+
+      print("(_scrollController.position.maxScrollExtent : ${_scrollController.offset}");
+
+      if(_scrollController.offset < 100){
+        setState(() {
+          _screenOnTop = true;
+        });
+      }else{
+        setState(() {
+          _screenOnTop = false;
+        });
+      }
+
+      if(_scrollController.position.maxScrollExtent == _scrollController.offset){
+
+        print("바닥 닿음!");
+      }
+    });
+  }
+
+  void initTimers() {
+    _contentUpdateCounter = Timer.periodic(Duration(seconds: 10), (timer) {
+      getItemInfosFromSvr();
+    });
   }
 
 }
