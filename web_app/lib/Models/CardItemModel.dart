@@ -10,23 +10,23 @@ String cardItemModelToJson(CardItemModel data) => json.encode(data.toJson());
 
 class CardItemModel {
   CardItemModel({
-    this.content,
+    this.contents,
     this.createdBy,
     this.createdAt,
   });
 
-  String content;
+  String contents;
   String createdBy;
   String createdAt;
 
   factory CardItemModel.fromJson(Map<String, dynamic> json) => CardItemModel(
-    content: json["content"],
+    contents: json["contents"],
     createdBy: json["createdBy"],
     createdAt: json["createdAt"],
   );
 
   Map<String, dynamic> toJson() => {
-    "content": content,
+    "contents": contents,
     "createdBy": createdBy,
     "createdAt": createdAt,
   };

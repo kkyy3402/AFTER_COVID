@@ -6,6 +6,7 @@ import 'package:universal_html/html.dart' as html;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:web_app/Managers/NetworkManager.dart';
 import 'package:web_app/Models/CardItemModel.dart';
 import 'package:web_app/Util/AnimatedFlipCounter.dart';
 
@@ -24,7 +25,11 @@ class _MainPageState extends State<MainPage> {
 
   List<CardItemModel> cardItemList = <CardItemModel>[];
   int _testCnt = 0;
-  Timer _timerForCounter;
+
+  TextEditingController _contentTextEditingController;
+  TextEditingController _authorTextEditingController;
+
+  //Timer _timerForCounter;
 
   //User-Agent체크를 위한 변수들
   final String appleType = "apple";
@@ -35,25 +40,9 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
 
-    //테스트용 데이터를 만든다.
-    makeDefaultItemList();
-
-    _timerForCounter = Timer.periodic(Duration(milliseconds: 300), (timer) {
-
-      setState(() {
-        cardItemList.add(CardItemModel(content: "내용추가추가", createdBy: "글쓴이추가추가",createdAt: "ㅎㅎㅎ"));
-      });
-
-      _testCnt += 1;
-      if(_testCnt % 5 == 0){
-
-      }
-
-    });
-
-
-
-
+    _contentTextEditingController = TextEditingController();
+    _authorTextEditingController = TextEditingController();
+    getItemInfosFromSvr();
 
   }
 
@@ -143,6 +132,7 @@ class _MainPageState extends State<MainPage> {
                     Container(
                         width: 300,
                         child: CupertinoTextField(
+                          controller: _contentTextEditingController,
                           placeholder: "하고싶은 일을 적어주세요",
                           padding: EdgeInsets.all(12),
                           style: TextStyle(
@@ -174,6 +164,7 @@ class _MainPageState extends State<MainPage> {
                         Container(
                           width: 150,
                           child: CupertinoTextField(
+                            controller: _authorTextEditingController,
                             placeholder: "이름을 적어주세요",
                             padding: EdgeInsets.all(12),
                             style: TextStyle(
@@ -192,11 +183,7 @@ class _MainPageState extends State<MainPage> {
 
                     RaisedButton(
                       onPressed: (){
-                        print("버튼 눌렸습니다!");
-                        setState(() {
-
-                        });
-
+                        reqInsertDiaryToSvr();
                       },
                       color: Colors.black,
                       child: Text(
@@ -428,7 +415,7 @@ class _MainPageState extends State<MainPage> {
 
   void makeDefaultItemList() {
     for (int i = 0 ; i < 3 ; i++) {
-      cardItemList.add(CardItemModel(content: "내용${i}", createdBy: "글쓴이${i}",createdAt: "${i}"));
+      cardItemList.add(CardItemModel(contents: "내용${i}", createdBy: "글쓴이${i}",createdAt: "${i}"));
     }
 
   }
@@ -495,7 +482,7 @@ class _MainPageState extends State<MainPage> {
                   cardItemList.length > columnIdx * columnCnt + rowCnt?
                     getBottomCardView(
                         "${cardItemList[columnIdx * columnCnt + rowCnt].createdBy}",
-                        "${cardItemList[columnIdx * columnCnt + rowCnt].content}") : Container()
+                        "${cardItemList[columnIdx * columnCnt + rowCnt].contents}") : Container()
 
               ]),
 
@@ -514,4 +501,32 @@ class _MainPageState extends State<MainPage> {
 
 
   }
+
+  //서버에서 데이터 가져온다.
+  void getItemInfosFromSvr() async{
+    cardItemList.clear();
+    List<CardItemModel> items = await NetworkManager.getInstance.getItems(0,100);
+    print(items);
+
+    setState(() {
+      cardItemList = items;
+    });
+  }
+
+  void reqInsertDiaryToSvr() async{
+    CardItemModel item = CardItemModel(
+      contents: _contentTextEditingController.text,
+      createdBy: _authorTextEditingController.text
+    );
+    bool result = await NetworkManager.getInstance.insertItem(item);
+    //등록 성공하면 아이템을 다시 불러온다.
+    if(result){
+      getItemInfosFromSvr();
+      _contentTextEditingController.text = "";
+      _authorTextEditingController.text = "";
+    }else{
+
+    }
+  }
+
 }
