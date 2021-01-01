@@ -9,6 +9,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:web_app/Managers/NetworkManager.dart';
 import 'package:web_app/Models/CardItemModel.dart';
 import 'package:web_app/Util/AnimatedFlipCounter.dart';
+import 'package:web_app/Util/CustomDialogBox.dart';
 
 class USER_AGENT_TYPE{
   static String APPLE = "apple";
@@ -98,6 +99,7 @@ class _MainPageState extends State<MainPage> {
       ),
       body: SingleChildScrollView(
         controller: _scrollController,
+        physics: null,
         child: Scrollbar(
           child: Container(
               child: Column(
@@ -267,6 +269,17 @@ class _MainPageState extends State<MainPage> {
                     RaisedButton(
                       onPressed: (){
                         reqInsertDiaryToSvr();
+                        /*
+                        showDialog(context: context,
+                            builder: (BuildContext context){
+                              return CustomDialogBox(
+                                title: "Custom Dialog Demo",
+                                descriptions: "Hii all this is a custom dialog in flutter and  you will be use in your flutter applications",
+                                text: "Yes",
+                              );
+                            }
+                        );*/
+
                       },
                       color: Colors.black,
                       child: Text(
