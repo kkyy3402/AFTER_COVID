@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:web_app/DEFINES.dart';
+import 'package:web_app/Models/CardItemModel.dart';
 import 'package:web_app/Widgets/CardView.dart';
 
 class Constants{
@@ -9,17 +11,28 @@ class Constants{
   static const double avatarRadius =45;
 }
 
-class CustomDialogBox extends StatefulWidget {
-  final String title, descriptions, text;
-  final Image img;
 
-  const CustomDialogBox({Key key, this.title, this.descriptions, this.text, this.img}) : super(key: key);
+
+class ItemRegisterDialogBox extends StatefulWidget {
+  //final String title, descriptions, text;
+  //final Image img;
+  final CardItemModel item;
+
+  const ItemRegisterDialogBox({Key key, this.item}) : super(key: key);
 
   @override
-  _CustomDialogBoxState createState() => _CustomDialogBoxState();
+  _ItemRegisterDialogBoxState createState() => _ItemRegisterDialogBoxState();
 }
 
-class _CustomDialogBoxState extends State<CustomDialogBox> {
+class _ItemRegisterDialogBoxState extends State<ItemRegisterDialogBox> {
+
+  int _selectedBackgroundColorIdx = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -41,7 +54,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                 width: double.infinity,
                 child: IconButton(
                   onPressed: (){
-                    Navigator.pop(context);
+                    Navigator.pop(context,null);
                   },
                   icon: Icon(
                     Icons.close,
@@ -51,33 +64,121 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
               ),
 
               //예시
-              getBottomCardView("11","22"),
+              getExampleCardView(
+                  this.widget.item.contents,
+                  this.widget.item.createdBy,
+                  _selectedBackgroundColorIdx
+              ),
 
               Container(
+                padding: EdgeInsets.all(20),
                 width: double.infinity,
                 height: 80,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
 
-                    Container(
-                      height: 30,
-                      width: 80,
-                      color: Colors.red,
+                    Flexible(
+                      flex: 1,
+                      child: InkWell(
+                        onTap: (){
+                          setState(() {
+                            _selectedBackgroundColorIdx = 0;
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: _selectedBackgroundColorIdx == 0 ? Border.all(color: Colors.black) : null,
+                            gradient: LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                colors: ITEM_COLOR_PALETTE.colorList[0]),
+                          ),
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: Container(),
+                          ),
+                        ),
+                      ),
                     ),
 
-                    SizedBox(width: 8),
+                    SizedBox(width: 10),
 
-                    Container(
-                      height: 30,
-                      color: Colors.yellowAccent,
+                    Flexible(
+                      flex: 1,
+                      child: InkWell(
+                        onTap: (){
+                          setState(() {
+                            _selectedBackgroundColorIdx = 1;
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: _selectedBackgroundColorIdx == 1 ? Border.all(color: Colors.black) : null,
+                            gradient: LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                colors: ITEM_COLOR_PALETTE.colorList[1]),
+                          ),
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: Container(),
+                          ),
+                        ),
+                      ),
                     ),
 
-                    SizedBox(width: 8),
+                    SizedBox(width: 10),
 
-                    Container(
-                      height: 30,
-                      color: Colors.blue,
-                    )
+                    Flexible(
+                      flex: 1,
+                      child: InkWell(
+                        onTap: (){
+                          setState(() {
+                            _selectedBackgroundColorIdx = 2;
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: _selectedBackgroundColorIdx == 2 ? Border.all(color: Colors.black) : null,
+                            gradient: LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                colors: ITEM_COLOR_PALETTE.colorList[2]),
+                          ),
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: Container(),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(width: 10),
+
+                    Flexible(
+                      flex: 1,
+                      child: InkWell(
+                        onTap: (){
+                          setState(() {
+                            _selectedBackgroundColorIdx = 3;
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: _selectedBackgroundColorIdx == 3 ? Border.all(color: Colors.black) : null,
+                            gradient: LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                colors: ITEM_COLOR_PALETTE.colorList[3]),
+                          ),
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: Container(),
+                          ),
+                        ),
+                      ),
+                    ),
 
 
                   ],
@@ -86,10 +187,11 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
 
               RaisedButton(
                 onPressed: (){
+                  //reqInsertDiaryToSvr();
 
+                  Navigator.pop(context, _selectedBackgroundColorIdx);
                 },
-                elevation: 0,
-                color: Colors.yellowAccent,
+                color: Colors.black,
                 child: Text(
                   "공유하기",
                   style: TextStyle(
@@ -103,7 +205,9 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0)
                 ),
-              )
+              ),
+
+              SizedBox(height: 8)
 
             ],
           ),

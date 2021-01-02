@@ -250,18 +250,8 @@ class _MainPageState extends State<MainPage> {
 
                     RaisedButton(
                       onPressed: (){
-                        reqInsertDiaryToSvr();
-
-                        /*
-                        showDialog(context: context,
-                            builder: (BuildContext context){
-                              return CustomDialogBox(
-                                title: "Custom Dialog Demo",
-                                descriptions: "Hii all this is a custom dialog in flutter and  you will be use in your flutter applications",
-                                text: "Yes",
-                              );
-                            }
-                        );*/
+                        //reqInsertDiaryToSvr();
+                        showItemRegisterDialog();
 
                       },
                       color: Colors.black,
@@ -487,11 +477,11 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
-  void reqInsertDiaryToSvr() async{
+  void reqInsertDiaryToSvr(int selectedColorIdx) async{
     CardItemModel item = CardItemModel(
         contents: _contentTextEditingController.text,
         createdBy: _authorTextEditingController.text,
-        backgroundIdx: 0
+        backgroundIdx: selectedColorIdx
     );
 
     setState(() {
@@ -561,6 +551,58 @@ class _MainPageState extends State<MainPage> {
     }else{
       print("서버에 더 받을 아이템이 없습니다.");
     }
+
+  }
+
+  void showItemRegisterDialog() {
+
+    if(!checkTextFieldEmpty()){
+      return;
+    }
+
+    CardItemModel item = CardItemModel(
+        contents: _contentTextEditingController.text,
+        createdBy: _authorTextEditingController.text,
+        backgroundIdx: 0
+    );
+
+    showDialog(context: context,
+        builder: (BuildContext context){
+          return ItemRegisterDialogBox(
+            item: item
+          );
+        }
+    ).then((colorIdx) => {
+
+      if(colorIdx != null){
+        print("ㅎㅎㅎ11"),
+        if(colorIdx != -1){
+          print("ㅎㅎㅎ"),
+          reqInsertDiaryToSvr(colorIdx)
+        }else{
+          print("취소")
+        }
+      }else{
+        print("22222"),
+      }
+
+
+    });
+
+  }
+
+  bool checkTextFieldEmpty(){
+    if(_contentTextEditingController.text.length == 0){
+      showToast("내용을 입력해주세요");
+      return false;
+    }
+
+    if(_authorTextEditingController.text.length == 0){
+      showToast("이름을 입력해주세요");
+      return false;
+    }
+
+    return true;
 
   }
 

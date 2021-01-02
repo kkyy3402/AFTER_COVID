@@ -1,6 +1,8 @@
 //하단의 그리드 뷰를 불러오는
 import 'package:flutter/material.dart';
 
+import '../DEFINES.dart';
+
 getBottomCardView(String author, String contents) {
 
   return Container(
@@ -60,6 +62,63 @@ getBottomCardView(String author, String contents) {
             offset: Offset(0, 0), // changes position of shadow
           ),
         ],
+      ),
+    ),
+  );
+}
+
+getExampleCardView(String author, String contents, int colorIdx) {
+
+  return Container(
+    child: Container(
+      width: 200,
+      height: 200,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+
+          //내용
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(top: 12, left: 12, right: 12, bottom: 6),
+              width: double.infinity,
+              alignment: Alignment.topLeft,
+              child: Text(
+                contents,
+                style: TextStyle(
+                    fontFamily: "NanumSquareRound",
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white
+                ),
+              ),
+            ),
+          ),
+
+          SizedBox(height: 16),
+
+
+          //글쓴이
+          Container(
+            margin: EdgeInsets.only(left: 16, bottom:12),
+            width: double.infinity,
+            child: Text(
+              "by " + author,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.white,
+
+              ),
+            ),
+          ),
+
+        ],
+      ),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: ITEM_COLOR_PALETTE.colorList[colorIdx]),
       ),
     ),
   );
