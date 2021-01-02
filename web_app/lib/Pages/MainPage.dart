@@ -443,9 +443,18 @@ class _MainPageState extends State<MainPage> {
               children: [
                 for (int rowCnt = 0 ; rowCnt < columnCnt ; rowCnt++)
                   _cardItemList.length > columnIdx * columnCnt + rowCnt?
-                  getBottomCardView(
-                      "${_cardItemList[columnIdx * columnCnt + rowCnt].createdBy}",
-                      "${_cardItemList[columnIdx * columnCnt + rowCnt].contents}") : Container()
+                  InkWell(
+                    onTap: (){
+                      showDialog(context: context,
+                          builder: (BuildContext context){
+                            return ShowItemPopup(item:_cardItemList[columnIdx * columnCnt + rowCnt]);
+                          }
+                      );
+                    },
+                    child: getBottomCardView(
+                        "${_cardItemList[columnIdx * columnCnt + rowCnt].createdBy}",
+                        "${_cardItemList[columnIdx * columnCnt + rowCnt].contents}"),
+                  ) : Container()
 
               ]),
       ],

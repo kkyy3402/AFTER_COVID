@@ -217,3 +217,27 @@ class _ItemRegisterDialogBoxState extends State<ItemRegisterDialogBox> {
   }
 
 }
+
+class ShowItemPopup extends StatefulWidget {
+
+  final CardItemModel item;
+  const ShowItemPopup({Key key, this.item}) : super(key: key);
+
+  @override
+  _ShowItemPopupState createState() => _ShowItemPopupState();
+}
+
+class _ShowItemPopupState extends State<ShowItemPopup> {
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(child:
+    Container(
+      width: 100,
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: getExampleCardView(this.widget.item.createdBy, this.widget.item.contents, this.widget.item.backgroundIdx),
+      ),
+    )
+    );
+  }
+}
