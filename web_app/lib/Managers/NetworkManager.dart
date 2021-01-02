@@ -17,7 +17,7 @@ class NetworkManager {
 
     var resListData = json.decode(response.body)["data"] as List;
     resListData.forEach((element) {
-      CardItemModel item = CardItemModel(createdBy: element[1], contents: element[3],createdAt: "11");
+      CardItemModel item = CardItemModel(createdBy: element[1], contents: element[3],createdAt: "11", backgroundIdx: element[4]);
       resultItems.add(item);
     });
 
