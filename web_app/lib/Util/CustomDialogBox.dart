@@ -65,8 +65,8 @@ class _ItemRegisterDialogBoxState extends State<ItemRegisterDialogBox> {
 
               //예시
               getExampleCardView(
-                  this.widget.item.contents,
                   this.widget.item.createdBy,
+                  this.widget.item.contents,
                   _selectedBackgroundColorIdx
               ),
 
