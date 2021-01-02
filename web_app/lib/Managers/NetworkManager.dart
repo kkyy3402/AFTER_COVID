@@ -26,7 +26,7 @@ class NetworkManager {
   }
 
   Future<bool> insertItem(CardItemModel item) async{
-    String reqUrl = REST.BASE_URL+REST.CREATE+"?createdBy=${item.createdBy}&contents=${item.contents}";
+    String reqUrl = REST.BASE_URL+REST.CREATE+"?createdBy=${item.createdBy}&contents=${item.contents}&backgroundIdx=${item.backgroundIdx}";
 
     print("reqURL : $reqUrl");
 
@@ -40,6 +40,15 @@ class NetworkManager {
     }else{
       return false;
     }
+
+  }
+
+  Future<int> getTotalItemCnt() async{
+    String reqUrl = REST.BASE_URL + REST.GET_CNT;
+    var response = await http.get(reqUrl);
+    var itemCnt = json.decode(response.body)["data"];
+    print("[kky] totalItemCnt : $itemCnt");
+    return itemCnt;
 
   }
 

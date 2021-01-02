@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:web_app/Widgets/CardView.dart';
 
 class Constants{
   Constants._();
@@ -25,12 +26,12 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         child: Container(
-          padding: EdgeInsets.all(32),
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             color: Colors.white,
           ),
-          width: 300,
+          width: 280,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -50,11 +51,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
               ),
 
               //예시
-              Container(
-                color: Colors.blue,
-                width: 50,
-                height: 50,
-              ),
+              getBottomCardView("11","22"),
 
               Container(
                 width: double.infinity,

@@ -10,12 +10,10 @@ import 'package:web_app/Managers/NetworkManager.dart';
 import 'package:web_app/Models/CardItemModel.dart';
 import 'package:web_app/Util/AnimatedFlipCounter.dart';
 import 'package:web_app/Util/CustomDialogBox.dart';
+import 'package:web_app/Util/Util.dart';
+import 'package:web_app/Widgets/CardView.dart';
 
-class USER_AGENT_TYPE{
-  static String APPLE = "apple";
-  static String ANDROID = "android";
-  static String DESKTOP = "desktop";
-}
+import '../DEFINES.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -24,51 +22,30 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
 
-  List<CardItemModel> cardItemList = <CardItemModel>[];
-  int _testCnt = 0;
+  List<CardItemModel> _cardItemList = <CardItemModel>[];
 
-  int _maxContentLength = 140;
-  int _maxAuthorLength = 14;
+  //글자수 제한
+  int _maxContentLength = 140; // 내용 글자수 제한
+  int _maxAuthorLength = 14; // 글쓴이 글자수 제한
 
-  int _currentContentTextLength = 0;
-  int _currentAuthorTextLength = 0;
+  int _currentContentTextLength = 0; //현재 입력된 내용 글자 갯수
+  int _currentAuthorTextLength = 0; //현재 입력된 글쓴이 글자 갯수
+  int _totalItemCntInSvr = 0; //서버에 있는 전체 아이템 갯수
 
   final ScrollController _scrollController = ScrollController();
   TextEditingController _contentTextEditingController;
   TextEditingController _authorTextEditingController;
 
-  Timer _contentUpdateCounter;
-
-  //User-Agent체크를 위한 변수들
-  final String appleType = "apple";
-  final String androidType = "android";
-  final String desktopType = "desktop";
-
-  bool _screenOnTop = true;
+  bool _screenOnTop = true; // 화면이 가장 위에 있는지 여부
 
   @override
   void initState() {
     super.initState();
 
-    _contentTextEditingController = TextEditingController();
-    _contentTextEditingController.addListener(() {
-      setState(() {
-        _currentContentTextLength = _contentTextEditingController.text.length;
-      });
-
-    });
-    _authorTextEditingController = TextEditingController();
-    _authorTextEditingController.addListener(() {
-      setState(() {
-        _currentAuthorTextLength = _authorTextEditingController.text.length;
-      });
-
-    });
-
+    initTextFieldControllers();
     getItemInfosFromSvr();
-
     initScrollListener();
-    initTimers();
+    getTotalItemCnt();
 
   }
 
@@ -76,7 +53,7 @@ class _MainPageState extends State<MainPage> {
   void dispose() {
     _contentTextEditingController.dispose();
     _authorTextEditingController.dispose();
-    _contentUpdateCounter.cancel();
+    //_contentUpdateCounter.cancel();
     _scrollController.dispose();
     super.dispose();
   }
@@ -115,8 +92,6 @@ class _MainPageState extends State<MainPage> {
                   ),
 
                   getFooter()
-
-
 
                 ],
               )
@@ -276,6 +251,7 @@ class _MainPageState extends State<MainPage> {
                     RaisedButton(
                       onPressed: (){
                         reqInsertDiaryToSvr();
+
                         /*
                         showDialog(context: context,
                             builder: (BuildContext context){
@@ -376,7 +352,7 @@ class _MainPageState extends State<MainPage> {
 
           AnimatedFlipCounter(
             duration: Duration(milliseconds: 1000),
-            value: cardItemList.length, /* pass in a number like 2014 */
+            value: _totalItemCntInSvr, /* pass in a number like 2014 */
             color: Colors.black,
             size: 50,
           ),
@@ -405,120 +381,16 @@ class _MainPageState extends State<MainPage> {
 
           getMessageCards()
 
-
-
-
-
-
-          /*
-          Container(
-            height: 300,
-            child: GridView.count(
-              crossAxisCount: 4 ,
-              children: List.generate(50,(index){
-                return getBottomCardView("kkyy3402","ㅁㄴ아러ㅗㅁ너ㅏㅇ롸먼ㅇ롬ㄴㅇㅀ롬ㄴㅇㅎ러ㅗㅁㄶ럼ㄴㅇㅎ렇ㄴㅁㅇ롷ㄴ엃ㅁㄴㅀㅁㄴㅀ넘ㄹ허ㅗㄴㅇㅎ렇ㅁ농렇ㅁ넗ㅁㄴ엃ㅁㄴㅀㅁㄴㅀㅁㄴ러ㅗㅁㄴㅇ라ㅓㅗㅁ낭로ㅓㅗ허ㅗ홓ㄻ놓ㅇㄹㅁㄴㅇ롬넝롬ㄴ아롸ㅓㅁㄴ오러ㅏㅁ놀어ㅏㅗㅁㄴㄻㄴㅀㅁㄶㅁㄴ옮ㄴㅀㄶㅁ넣렇");
-              }),
-            ),
-          )
-
-           */
-
-
-
-
-/*
-          StaggeredGridView.countBuilder(
-            crossAxisCount: 4,
-            itemCount: 4,
-            itemBuilder: (BuildContext context, int index) => Container(
-                color: Colors.green,
-                child: Center(
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: Text('$index'),
-                  ),
-                )),
-            staggeredTileBuilder: (int index) =>
-            StaggeredTile.count(2, index.isEven ? 2 : 1),
-            mainAxisSpacing: 4.0,
-            crossAxisSpacing: 4.0,
-          )
-
-*/
-
         ],
       ),
     );
   }
 
-  //하단의 그리드 뷰를 불러오는
-  getBottomCardView(String author, String contents) {
 
-    return Container(
-      padding: EdgeInsets.all(30),
-      child: Container(
-        width: 200,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-
-            //내용
-            Container(
-              padding: EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 6),
-              width: double.infinity,
-              alignment: Alignment.topLeft,
-              child: Text(
-                contents,
-                style: TextStyle(
-                    fontFamily: "NanumSquareRound",
-                    fontWeight: FontWeight.bold
-                ),
-              ),
-            ),
-
-            //구분선
-            Container(
-              margin: EdgeInsets.all(12),
-              width: double.infinity,
-              height: 1,
-              color: Colors.grey,
-            ),
-
-            //글쓴이
-            Container(
-              margin: EdgeInsets.only(left: 16, bottom:12),
-              width: double.infinity,
-              child: Text(
-                "by " + author,
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey
-                ),
-              ),
-            ),
-
-          ],
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.0),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: Offset(0, 0), // changes position of shadow
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   void makeDefaultItemList() {
     for (int i = 0 ; i < 3 ; i++) {
-      cardItemList.add(CardItemModel(contents: "내용${i}", createdBy: "글쓴이${i}",createdAt: "${i}"));
+      _cardItemList.add(CardItemModel(contents: "내용${i}", createdBy: "글쓴이${i}",createdAt: "${i}"));
     }
 
   }
@@ -538,14 +410,14 @@ class _MainPageState extends State<MainPage> {
   String getUserAgent(){
     String userAgent = html.window.navigator.userAgent.toString().toLowerCase();
     // smartphone
-    if( userAgent.contains("iphone"))  return appleType;
-    if( userAgent.contains("android"))  return androidType;
+    if( userAgent.contains("iphone"))  return USER_AGENT_TYPE.APPLE;
+    if( userAgent.contains("android"))  return USER_AGENT_TYPE.ANDROID;
 
     // tablet
-    if( userAgent.contains("ipad")) return appleType;
-    if( html.window.navigator.platform.toLowerCase().contains("macintel") && html.window.navigator.maxTouchPoints > 0 ) return appleType;
+    if( userAgent.contains("ipad")) return USER_AGENT_TYPE.ANDROID;
+    if( html.window.navigator.platform.toLowerCase().contains("macintel") && html.window.navigator.maxTouchPoints > 0 ) return USER_AGENT_TYPE.ANDROID;
 
-    return desktopType;
+    return USER_AGENT_TYPE.DESKTOP;
   }
 
   getMessageCards() {
@@ -568,8 +440,6 @@ class _MainPageState extends State<MainPage> {
       columnCnt = 5;
     }
 
-    print("width : $screenWidth");
-
     //User-Agent에 따라, 화면에 표출되는 Column 카운트를 변경시킨다.
     if(getUserAgent() == USER_AGENT_TYPE.ANDROID || getUserAgent() == USER_AGENT_TYPE.APPLE){
       columnCnt = 1;
@@ -577,54 +447,66 @@ class _MainPageState extends State<MainPage> {
 
     return Column(
       children: [
-        for (int columnIdx = 0 ; columnIdx < cardItemList.length / columnCnt ; columnIdx++)
+        for (int columnIdx = 0 ; columnIdx < _cardItemList.length / columnCnt ; columnIdx++)
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 for (int rowCnt = 0 ; rowCnt < columnCnt ; rowCnt++)
-                  cardItemList.length > columnIdx * columnCnt + rowCnt?
+                  _cardItemList.length > columnIdx * columnCnt + rowCnt?
                   getBottomCardView(
-                      "${cardItemList[columnIdx * columnCnt + rowCnt].createdBy}",
-                      "${cardItemList[columnIdx * columnCnt + rowCnt].contents}") : Container()
+                      "${_cardItemList[columnIdx * columnCnt + rowCnt].createdBy}",
+                      "${_cardItemList[columnIdx * columnCnt + rowCnt].contents}") : Container()
 
               ]),
-
-        /*
-          Row(
-              children: [
-                getBottomCardView("kkyy3402","ㅁㄴ아러ㅗㅁ너ㅏㅇ롸먼ㅇ롬ㄴㅇㅀ롬ㄴㅇㅎ러ㅗㅁㄶ럼ㄴㅇㅎ렇ㄴㅁㅇ롷ㄴ엃ㅁㄴㅀㅁㄴㅀ넘ㄹ허ㅗㄴㅇㅎ렇ㅁ농렇ㅁ넗ㅁㄴ엃ㅁㄴㅀㅁㄴㅀㅁㄴ러ㅗㅁㄴㅇ라ㅓㅗㅁ낭로ㅓㅗ허ㅗ홓ㄻ놓ㅇㄹㅁㄴㅇ롬넝롬ㄴ아롸ㅓㅁㄴ오러ㅏㅁ놀어ㅏㅗㅁㄴㄻㄴㅀㅁㄶㅁㄴ옮ㄴㅀㄶㅁ넣렇"),
-                getBottomCardView("kkyy3402","ㅁㄴ아러ㅗㅁ너ㅏㅇ롸먼ㅇ롬ㄴㅇㅀ롬ㄴㅇㅎ러ㅗㅁㄶ럼ㄴㅇㅎ렇ㄴㅁㅇ롷ㄴ엃ㅁㄴㅀㅁㄴㅀ넘ㄹ허ㅗㄴㅇㅎ렇ㅁ농렇ㅁ넗ㅁㄴ엃ㅁㄴㅀㅁㄴㅀㅁㄴ러ㅗㅁㄴㅇ라ㅓㅗㅁ낭로ㅓㅗ허ㅗ홓ㄻ놓ㅇㄹㅁㄴㅇ롬넝롬ㄴ아롸ㅓㅁㄴ오러ㅏㅁ놀어ㅏㅗㅁㄴㄻㄴㅀㅁㄶㅁㄴ옮ㄴㅀㄶㅁ넣렇"),
-                getBottomCardView("kkyy3402","ㅁㄴ아러ㅗㅁ너ㅏㅇ롸먼ㅇ롬ㄴㅇㅀ롬ㄴㅇㅎ러ㅗㅁㄶ럼ㄴㅇㅎ렇ㄴㅁㅇ롷ㄴ엃ㅁㄴㅀㅁㄴㅀ넘ㄹ허ㅗㄴㅇㅎ렇ㅁ농렇ㅁ넗ㅁㄴ엃ㅁㄴㅀㅁㄴㅀㅁㄴ러ㅗㅁㄴㅇ라ㅓㅗㅁ낭로ㅓㅗ허ㅗ홓ㄻ놓ㅇㄹㅁㄴㅇ롬넝롬ㄴ아롸ㅓㅁㄴ오러ㅏㅁ놀어ㅏㅗㅁㄴㄻㄴㅀㅁㄶㅁㄴ옮ㄴㅀㄶㅁ넣렇"),
-                getBottomCardView("kkyy3402","ㅁㄴ아러ㅗㅁ너ㅏㅇ롸먼ㅇ롬ㄴㅇㅀ롬ㄴㅇㅎ러ㅗㅁㄶ럼ㄴㅇㅎ렇ㄴㅁㅇ롷ㄴ엃ㅁㄴㅀㅁㄴㅀ넘ㄹ허ㅗㄴㅇㅎ렇ㅁ농렇ㅁ넗ㅁㄴ엃ㅁㄴㅀㅁㄴㅀㅁㄴ러ㅗㅁㄴㅇ라ㅓㅗㅁ낭로ㅓㅗ허ㅗ홓ㄻ놓ㅇㄹㅁㄴㅇ롬넝롬ㄴ아롸ㅓㅁㄴ오러ㅏㅁ놀어ㅏㅗㅁㄴㄻㄴㅀㅁㄶㅁㄴ옮ㄴㅀㄶㅁ넣렇"),
-              ])
-
-           */
       ],
     );
 
 
   }
 
+  void getTotalItemCnt() async{
+    int totalItemCnt = await NetworkManager.getInstance.getTotalItemCnt();
+    setState(() {
+        _totalItemCntInSvr = totalItemCnt;
+    });
+
+
+  }
+
   //서버에서 데이터 가져온다.
   void getItemInfosFromSvr() async{
-    cardItemList.clear();
-    List<CardItemModel> items = await NetworkManager.getInstance.getItems(0,100);
-    print(items);
+    //cardItemList.clear();
+    List<CardItemModel> items = await NetworkManager.getInstance.getItems(_cardItemList.length,50);
+
+    items.forEach((element) {
+      _cardItemList.add(element);
+    });
 
     setState(() {
-      cardItemList = items;
+
     });
   }
 
   void reqInsertDiaryToSvr() async{
     CardItemModel item = CardItemModel(
         contents: _contentTextEditingController.text,
-        createdBy: _authorTextEditingController.text
+        createdBy: _authorTextEditingController.text,
+        backgroundIdx: 0
     );
+
+    setState(() {
+      //첫번째 항목에 바로 추가한다.
+      _cardItemList.insert(0, item);
+      _totalItemCntInSvr += 1;
+    });
+
+    showToast("소원이 등록되었습니다!");
+
     bool result = await NetworkManager.getInstance.insertItem(item);
+
     //등록 성공하면 아이템을 다시 불러온다.
     if(result){
-      getItemInfosFromSvr();
+      //getItemInfosFromSvr();
       _contentTextEditingController.text = "";
       _authorTextEditingController.text = "";
     }else{
@@ -632,13 +514,9 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
-
-
   void initScrollListener() {
+
     _scrollController.addListener(() {
-
-      print("(_scrollController.position.maxScrollExtent : ${_scrollController.offset}");
-
       if(_scrollController.offset < 100){
         setState(() {
           _screenOnTop = true;
@@ -650,16 +528,40 @@ class _MainPageState extends State<MainPage> {
       }
 
       if(_scrollController.position.maxScrollExtent == _scrollController.offset){
-
-        print("바닥 닿음!");
+        checkAdditionalItemCnt();
       }
     });
   }
 
-  void initTimers() {
-    _contentUpdateCounter = Timer.periodic(Duration(seconds: 10), (timer) {
-      getItemInfosFromSvr();
+  void initTextFieldControllers() {
+
+
+    _contentTextEditingController = TextEditingController();
+    _contentTextEditingController.addListener(() {
+      setState(() {
+        _currentContentTextLength = _contentTextEditingController.text.length;
+      });
+
     });
+    _authorTextEditingController = TextEditingController();
+    _authorTextEditingController.addListener(() {
+      setState(() {
+        _currentAuthorTextLength = _authorTextEditingController.text.length;
+      });
+
+    });
+  }
+
+  void checkAdditionalItemCnt() async {
+    int totalItemCnt = await NetworkManager.getInstance.getTotalItemCnt();
+    if(_cardItemList.length < totalItemCnt){
+      print("cardItemList.length : ${_cardItemList.length}, totalItemCnt : ${totalItemCnt}");
+      print("서버에 더 받을 아이템이 있습니다.");
+      getItemInfosFromSvr();
+    }else{
+      print("서버에 더 받을 아이템이 없습니다.");
+    }
+
   }
 
 }

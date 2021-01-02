@@ -4,3 +4,9 @@ class REST{
   static String READ = "getDiaryList";
   static String GET_CNT = "getTotalDiaryCount";
 }
+
+class USER_AGENT_TYPE{
+  static String APPLE = "apple";
+  static String ANDROID = "android";
+  static String DESKTOP = "desktop";
+}
