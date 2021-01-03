@@ -8,7 +8,7 @@ getBottomCardView(String author, String contents) {
   return Container(
     padding: EdgeInsets.all(8),
     child: Container(
-      width: 200,
+      width: 50,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [

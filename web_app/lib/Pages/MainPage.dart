@@ -435,6 +435,35 @@ class _MainPageState extends State<MainPage> {
       columnCnt = 1;
     }
 
+    return Container(
+      height: 1000,
+      width: 200 * columnCnt.toDouble(),
+      child: GridView.count(
+        shrinkWrap: true,
+        physics: BouncingScrollPhysics(),
+
+        crossAxisCount: columnCnt,
+        children: List.generate(_cardItemList.length, (index) {
+
+          return GestureDetector(
+            onTap: (){
+              showDialog(context: context,
+                  builder: (BuildContext context){
+                    return ShowItemPopup(item:_cardItemList[index]);
+                  }
+              );
+            },
+            child: getBottomCardView(
+                "${_cardItemList[index].createdBy}",
+                "${_cardItemList[index].contents}"),
+          );
+
+
+        }),
+      )
+    );
+
+    /*
     return Column(
       children: [
         for (int columnIdx = 0 ; columnIdx < _cardItemList.length / columnCnt ; columnIdx++)
@@ -458,7 +487,7 @@ class _MainPageState extends State<MainPage> {
 
               ]),
       ],
-    );
+    );*/
 
 
   }
