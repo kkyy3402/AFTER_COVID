@@ -76,7 +76,7 @@ class _MainPageState extends State<MainPage> {
       ),
       body: SingleChildScrollView(
         controller: _scrollController,
-        physics: null,
+        physics: BouncingScrollPhysics(),
         child: Scrollbar(
           child: Container(
               child: Column(
@@ -174,7 +174,8 @@ class _MainPageState extends State<MainPage> {
                           padding: EdgeInsets.all(12),
                           style: TextStyle(
                               fontSize: 14,
-                              fontFamily: "NanumSquareRound"
+                              fontFamily: "NanumSquareRound",
+                              fontWeight: FontWeight.normal
                           ),
                         )
 
@@ -188,10 +189,10 @@ class _MainPageState extends State<MainPage> {
                       width: 300,
                       alignment: Alignment.centerRight,
                       child: Text(
-                          "($_currentContentTextLength/$_maxContentLength)",
+                        "($_currentContentTextLength/$_maxContentLength)",
                         style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.white
+                            fontSize: 12,
+                            color: Colors.white
                         ),
                       ),
                     ),
@@ -436,31 +437,30 @@ class _MainPageState extends State<MainPage> {
     }
 
     return Container(
-      height: 1000,
-      width: 200 * columnCnt.toDouble(),
-      child: GridView.count(
-        shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
+        height: 1000,
+        width: 260 * columnCnt.toDouble(),
+        child: GridView.count(
+          shrinkWrap: true,
+          physics: BouncingScrollPhysics(),
+          crossAxisCount: columnCnt,
+          children: List.generate(_cardItemList.length, (index) {
 
-        crossAxisCount: columnCnt,
-        children: List.generate(_cardItemList.length, (index) {
-
-          return GestureDetector(
-            onTap: (){
-              showDialog(context: context,
-                  builder: (BuildContext context){
-                    return ShowItemPopup(item:_cardItemList[index]);
-                  }
-              );
-            },
-            child: getBottomCardView(
-                "${_cardItemList[index].createdBy}",
-                "${_cardItemList[index].contents}"),
-          );
+            return GestureDetector(
+              onTap: (){
+                showDialog(context: context,
+                    builder: (BuildContext context){
+                      return ShowItemPopup(item:_cardItemList[index]);
+                    }
+                );
+              },
+              child: getBottomCardView(
+                  "${_cardItemList[index].createdBy}",
+                  "${_cardItemList[index].contents}"),
+            );
 
 
-        }),
-      )
+          }),
+        )
     );
 
     /*
@@ -495,7 +495,7 @@ class _MainPageState extends State<MainPage> {
   void getTotalItemCnt() async{
     int totalItemCnt = await NetworkManager.getInstance.getTotalItemCnt();
     setState(() {
-        _totalItemCntInSvr = totalItemCnt;
+      _totalItemCntInSvr = totalItemCnt;
     });
 
 
@@ -607,7 +607,7 @@ class _MainPageState extends State<MainPage> {
     showDialog(context: context,
         builder: (BuildContext context){
           return ItemRegisterDialogBox(
-            item: item
+              item: item
           );
         }
     ).then((colorIdx) => {

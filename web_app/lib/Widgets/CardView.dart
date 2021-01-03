@@ -8,21 +8,23 @@ getBottomCardView(String author, String contents) {
   return Container(
     padding: EdgeInsets.all(8),
     child: Container(
-      width: 50,
+      width: 200,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
 
           //내용
-          Container(
-            padding: EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 6),
-            width: double.infinity,
-            alignment: Alignment.topLeft,
-            child: Text(
-              contents,
-              style: TextStyle(
-                  fontFamily: "NanumSquareRound",
-                  fontWeight: FontWeight.bold
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 6),
+              width: double.infinity,
+              alignment: Alignment.topLeft,
+              child: Text(
+                contents,
+                style: TextStyle(
+                    fontFamily: "NanumSquareRound",
+                    fontWeight: FontWeight.bold
+                ),
               ),
             ),
           ),
