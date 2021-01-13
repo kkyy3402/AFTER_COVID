@@ -121,7 +121,7 @@ class _MainPageState extends State<MainPage> {
           ),
            */
           child: Image.asset(
-            "assets/imgs/top_bg.png",
+            "assets/imgs/sky.png",
             fit: BoxFit.fill,
           ),
         ),
@@ -139,7 +139,20 @@ class _MainPageState extends State<MainPage> {
                   children: [
 
                     SizedBox(
-                      height: 48,
+                      height: 16,
+                    ),
+
+                    Container(
+                      width: 80,
+                      height: 80,
+                      child: Image.asset(
+                        "assets/imgs/moon.png",
+                        fit: BoxFit.scaleDown,
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 16,
                     ),
 
                     RichText(
@@ -477,9 +490,7 @@ class _MainPageState extends State<MainPage> {
                     }
                 );
               },
-              child: getBottomCardView(
-                  "${_cardItemList[index].createdBy}",
-                  "${_cardItemList[index].contents}"),
+              child: getBottomCardView(_cardItemList[index])
             );
 
 

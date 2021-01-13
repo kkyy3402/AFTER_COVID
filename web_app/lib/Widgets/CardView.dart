@@ -3,69 +3,84 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../DEFINES.dart';
+import '../Models/CardItemModel.dart';
 
-getBottomCardView(String author, String contents) {
+getBottomCardView(CardItemModel cardItem) {
 
   return Container(
-    padding: EdgeInsets.all(8),
-    child: Container(
-      width: 200,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
+    child: Stack(
+      children: [
 
-          //내용
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 6),
-              width: double.infinity,
-              alignment: Alignment.topLeft,
-              child: Text(
-                contents,
-                style: TextStyle(
-                    fontFamily: "NanumSquareRound",
-                    fontWeight: FontWeight.bold
+        Container(
+          width: 200,
+          height: 180,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage(
+                    "assets/imgs/card_background${cardItem.backgroundIdx+1}.png",
+                  )
+              )
+          ),
+        ),
+
+        Container(
+          width: 188,
+          height: 200,
+          margin: EdgeInsets.only(left: 6,top: 16,right: 6),
+          child: Container(
+            margin: EdgeInsets.only(left: 16,top: 16,right: 16),
+            padding: EdgeInsets.only(left: 16,top: 16,right: 16),
+            child: Column(
+              children: [
+
+                Expanded(
+                    child: Container(
+                      child: Text(
+                        cardItem.contents,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 12 ,
+                          fontWeight: FontWeight.w100,
+                        ),
+                      ),
+                      width: double.infinity,
+                    )
                 ),
-              ),
+
+                Divider(
+                  height: 1,
+                ),
+
+                Container(
+                    width: double.infinity,
+                    alignment: Alignment.centerRight,
+                    margin:EdgeInsets.only(bottom: 16,right: 8, top: 16),
+                    child: Text(
+                      "by" + cardItem.createdBy,
+                      style: TextStyle(
+                          fontSize: 12
+                      ),
+                    )
+                )
+
+              ],
+            ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.12),
+                  spreadRadius: 1,
+                  blurRadius: 9,
+                  offset: Offset(0, 8), // changes position of shadow
+                ),
+              ],
             ),
           ),
+        )
 
-          //구분선
-          Container(
-            margin: EdgeInsets.all(12),
-            width: double.infinity,
-            height: 1,
-            color: Colors.grey,
-          ),
-
-          //글쓴이
-          Container(
-            margin: EdgeInsets.only(left: 16, bottom:12),
-            width: double.infinity,
-            child: Text(
-              "by " + author,
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey
-              ),
-            ),
-          ),
-
-        ],
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16.0),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: Offset(0, 0), // changes position of shadow
-          ),
-        ],
-      ),
+      ],
     ),
   );
 }
@@ -87,10 +102,10 @@ getExampleCardView(String author, String contents, int colorIdx) {
               width: double.infinity,
               alignment: Alignment.topLeft,
               child: Text(
-                contents,
-                style: GoogleFonts.nanumMyeongjo(
-                    color: Colors.black
-                )
+                  contents,
+                  style: GoogleFonts.nanumMyeongjo(
+                      color: Colors.black
+                  )
               ),
             ),
           ),
@@ -116,7 +131,7 @@ getExampleCardView(String author, String contents, int colorIdx) {
         ],
       ),
       decoration: BoxDecoration(
-        color: Colors.white
+          color: Colors.white
       ),
     ),
   );
