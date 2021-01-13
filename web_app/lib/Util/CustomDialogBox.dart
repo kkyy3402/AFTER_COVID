@@ -42,7 +42,6 @@ class _ItemRegisterDialogBoxState extends State<ItemRegisterDialogBox> {
         child: Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
             color: Colors.white,
           ),
           width: 280,
@@ -65,11 +64,7 @@ class _ItemRegisterDialogBoxState extends State<ItemRegisterDialogBox> {
               ),
 
               //예시
-              getExampleCardView(
-                  this.widget.item.createdBy,
-                  this.widget.item.contents,
-                  _selectedBackgroundColorIdx
-              ),
+              getImagedCardView(this.widget.item),
 
               Container(
                 padding: EdgeInsets.all(20),
@@ -79,25 +74,28 @@ class _ItemRegisterDialogBoxState extends State<ItemRegisterDialogBox> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
 
+
                     Flexible(
                       flex: 1,
                       child: InkWell(
                         onTap: (){
                           setState(() {
                             _selectedBackgroundColorIdx = 0;
+                            this.widget.item.backgroundIdx = 0;
                           });
                         },
                         child: Container(
                           decoration: BoxDecoration(
                             border: _selectedBackgroundColorIdx == 0 ? Border.all(color: Colors.black) : null,
-                            gradient: LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: ITEM_COLOR_PALETTE.colorList[0]),
                           ),
                           child: AspectRatio(
                             aspectRatio: 1,
-                            child: Container(),
+                            child: Container(
+                              child: Image.asset(
+                                "assets/imgs/card_background1.png",
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -111,19 +109,21 @@ class _ItemRegisterDialogBoxState extends State<ItemRegisterDialogBox> {
                         onTap: (){
                           setState(() {
                             _selectedBackgroundColorIdx = 1;
+                            this.widget.item.backgroundIdx = 1;
                           });
                         },
                         child: Container(
                           decoration: BoxDecoration(
                             border: _selectedBackgroundColorIdx == 1 ? Border.all(color: Colors.black) : null,
-                            gradient: LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: ITEM_COLOR_PALETTE.colorList[1]),
                           ),
                           child: AspectRatio(
                             aspectRatio: 1,
-                            child: Container(),
+                            child: Container(
+                              child: Image.asset(
+                                "assets/imgs/card_background2.png",
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -137,19 +137,21 @@ class _ItemRegisterDialogBoxState extends State<ItemRegisterDialogBox> {
                         onTap: (){
                           setState(() {
                             _selectedBackgroundColorIdx = 2;
+                            this.widget.item.backgroundIdx = 2;
                           });
                         },
                         child: Container(
                           decoration: BoxDecoration(
                             border: _selectedBackgroundColorIdx == 2 ? Border.all(color: Colors.black) : null,
-                            gradient: LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: ITEM_COLOR_PALETTE.colorList[2]),
                           ),
                           child: AspectRatio(
                             aspectRatio: 1,
-                            child: Container(),
+                            child: Container(
+                              child: Image.asset(
+                                "assets/imgs/card_background3.png",
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -163,19 +165,21 @@ class _ItemRegisterDialogBoxState extends State<ItemRegisterDialogBox> {
                         onTap: (){
                           setState(() {
                             _selectedBackgroundColorIdx = 3;
+                            this.widget.item.backgroundIdx = 3;
                           });
                         },
                         child: Container(
                           decoration: BoxDecoration(
                             border: _selectedBackgroundColorIdx == 3 ? Border.all(color: Colors.black) : null,
-                            gradient: LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: ITEM_COLOR_PALETTE.colorList[3]),
                           ),
                           child: AspectRatio(
                             aspectRatio: 1,
-                            child: Container(),
+                            child: Container(
+                              child: Image.asset(
+                                "assets/imgs/card_background4.png",
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -189,23 +193,19 @@ class _ItemRegisterDialogBoxState extends State<ItemRegisterDialogBox> {
               RaisedButton(
                 onPressed: (){
                   //reqInsertDiaryToSvr();
-
                   Navigator.pop(context, _selectedBackgroundColorIdx);
-                },
-                color: Colors.black,
-                child: Text(
-                  "공유하기",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: "NanumSquareRound",
-                      fontWeight: FontWeight.bold
 
+                },
+                color: Color.fromARGB(255, 34, 34, 34),
+                elevation: 5,
+                child: Text(
+                  "소원빌기",
+                  style: GoogleFonts.nanumMyeongjo(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold
                   ),
                 ),
                 padding: EdgeInsets.only(left: 60, right: 60, top: 20, bottom: 20),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0)
-                ),
               ),
 
               SizedBox(height: 8)
@@ -235,15 +235,11 @@ class _ShowItemPopupState extends State<ShowItemPopup> {
         backgroundColor: Colors.transparent,
         child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
               color: Colors.white,
-              image: DecorationImage(
-                image: AssetImage("assets/imgs/card_background4.png")
-              )
             ),
 
             width: 220,
-            height: 350,
+            height: 500,
             alignment: Alignment.center,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -264,10 +260,11 @@ class _ShowItemPopupState extends State<ShowItemPopup> {
                     },
                   ),
                 ),
+                getImagedCardView(this.widget.item),
 
                 Container(
                   width: 200,
-                  height: 200,
+                  height: 100,
                   child: AspectRatio(
                     aspectRatio: 1,
                     child: getExampleCardView(this.widget.item.createdBy, this.widget.item.contents, this.widget.item.backgroundIdx),

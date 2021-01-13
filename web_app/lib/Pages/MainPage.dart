@@ -69,6 +69,8 @@ class _MainPageState extends State<MainPage> {
         opacity: _screenOnTop ? 0.0 : 1.0,
         duration: Duration(milliseconds: 300),
         child: FloatingActionButton(
+          backgroundColor: Color.fromARGB(196, 34, 34, 34),
+          shape: RoundedRectangleBorder(),
           child: Icon(
             Icons.arrow_upward_rounded,
             color: Colors.white,
@@ -282,7 +284,11 @@ class _MainPageState extends State<MainPage> {
                     RaisedButton(
                       onPressed: (){
                         //reqInsertDiaryToSvr();
-                        showItemRegisterDialog();
+
+                        if(checkTextFieldEmpty()){
+                          showItemRegisterDialog();
+                        }
+
 
                       },
                       color: Color.fromARGB(255, 34, 34, 34),
@@ -484,13 +490,14 @@ class _MainPageState extends State<MainPage> {
 
             return GestureDetector(
               onTap: (){
+                /*
                 showDialog(context: context,
                     builder: (BuildContext context){
-                      return ShowItemPopup(item:_cardItemList[index]);
+                      return ItemRegisterDialogBox(item:_cardItemList[index]);
                     }
-                );
+                );*/
               },
-              child: getBottomCardView(_cardItemList[index])
+              child: getImagedCardView(_cardItemList[index])
             );
 
 

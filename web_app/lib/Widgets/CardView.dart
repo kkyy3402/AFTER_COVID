@@ -5,9 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 import '../DEFINES.dart';
 import '../Models/CardItemModel.dart';
 
-getBottomCardView(CardItemModel cardItem) {
+getImagedCardView(CardItemModel cardItem) {
 
   return Container(
+    alignment: Alignment.center,
     child: Stack(
       children: [
 
@@ -57,7 +58,7 @@ getBottomCardView(CardItemModel cardItem) {
                     alignment: Alignment.centerRight,
                     margin:EdgeInsets.only(bottom: 16,right: 8, top: 16),
                     child: Text(
-                      "by" + cardItem.createdBy,
+                      "by. " + cardItem.createdBy,
                       style: TextStyle(
                           fontSize: 12
                       ),
