@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:web_app/DEFINES.dart';
 import 'package:web_app/Models/CardItemModel.dart';
 import 'package:web_app/Widgets/CardView.dart';
@@ -230,14 +231,75 @@ class ShowItemPopup extends StatefulWidget {
 class _ShowItemPopupState extends State<ShowItemPopup> {
   @override
   Widget build(BuildContext context) {
-    return Dialog(child:
-    Container(
-      width: 100,
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: getExampleCardView(this.widget.item.createdBy, this.widget.item.contents, this.widget.item.backgroundIdx),
-      ),
-    )
+    return Dialog(
+        backgroundColor: Colors.transparent,
+        child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: Colors.white,
+              image: DecorationImage(
+                image: AssetImage("assets/imgs/card_background4.png")
+              )
+            ),
+
+            width: 220,
+            height: 350,
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+
+                Container(
+                  alignment: Alignment.centerRight,
+                  margin: EdgeInsets.only(right: 12, bottom: 8),
+                  width: double.infinity,
+                  child: IconButton(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    icon: Icon(Icons.close),
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+
+                Container(
+                  width: 200,
+                  height: 200,
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: getExampleCardView(this.widget.item.createdBy, this.widget.item.contents, this.widget.item.backgroundIdx),
+                  ),
+                ),
+
+                SizedBox(
+                  height: 28,
+                ),
+
+                RaisedButton(
+                  onPressed: (){
+
+                  },
+                  color: Colors.black,
+                  child: Text(
+                    "소원빌기",
+                    style: GoogleFonts.nanumMyeongjo(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  padding: EdgeInsets.only(left: 60, right: 60, top: 20, bottom: 20),
+                ),
+
+                SizedBox(
+                  height: 16,
+                ),
+
+              ],
+            )
+        )
     );
   }
 }

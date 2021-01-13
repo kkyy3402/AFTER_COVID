@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "After Corona-19",
       theme: ThemeData(
-          fontFamily: 'NanumSquareRound'
+          fontFamily: 'NanumMyeongjo',
       ),
       debugShowCheckedModeBanner: false,
       home: MainPage(),

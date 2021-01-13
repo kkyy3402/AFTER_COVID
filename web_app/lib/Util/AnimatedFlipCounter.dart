@@ -76,7 +76,7 @@ class _SingleDigitFlipCounter extends StatelessWidget {
             children: <Widget>[
               _buildSingleDigit(
                 digit: whole % 10,
-                offset: height * decimal,
+                offset: height * decimal - 2,
                 opacity: 1 - decimal,
               ),
               _buildSingleDigit(
@@ -102,7 +102,8 @@ class _SingleDigitFlipCounter extends StatelessWidget {
             style: TextStyle(
                 fontSize: height,
                 color: color,
-                fontFamily: "NanumSquareRound"
+                fontFamily: "NanumMyeongjo",
+                fontWeight: FontWeight.bold
             ),
             textAlign: TextAlign.center,
           ),

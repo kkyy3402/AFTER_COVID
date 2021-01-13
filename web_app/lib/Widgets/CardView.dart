@@ -1,5 +1,6 @@
 //하단의 그리드 뷰를 불러오는
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../DEFINES.dart';
 
@@ -87,11 +88,9 @@ getExampleCardView(String author, String contents, int colorIdx) {
               alignment: Alignment.topLeft,
               child: Text(
                 contents,
-                style: TextStyle(
-                    fontFamily: "NanumSquareRound",
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white
-                ),
+                style: GoogleFonts.nanumMyeongjo(
+                    color: Colors.black
+                )
               ),
             ),
           ),
@@ -117,10 +116,7 @@ getExampleCardView(String author, String contents, int colorIdx) {
         ],
       ),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: ITEM_COLOR_PALETTE.colorList[colorIdx]),
+        color: Colors.white
       ),
     ),
   );

@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:universal_html/html.dart' as html;
 
 import 'package:flutter/cupertino.dart';
@@ -40,6 +42,8 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
+
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
     super.initState();
 
     initTextFieldControllers();
@@ -108,17 +112,18 @@ class _MainPageState extends State<MainPage> {
         Container(
           height: 400,
           width: double.infinity,
+          /*
           decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
                 colors: [Colors.blue, Colors.red]),
           ),
-          /*
+           */
           child: Image.asset(
             "assets/imgs/top_bg.png",
             fit: BoxFit.fill,
-          ),*/
+          ),
         ),
 
         Container(
@@ -134,7 +139,7 @@ class _MainPageState extends State<MainPage> {
                   children: [
 
                     SizedBox(
-                      height: 15,
+                      height: 48,
                     ),
 
                     RichText(
@@ -143,18 +148,19 @@ class _MainPageState extends State<MainPage> {
                       text: TextSpan(
                         children: <TextSpan>[
                           TextSpan(
-                              text: '😷 코로나',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: "NanumSquareRound",
+                              text: '코로나',
+                              style: GoogleFonts.nanumMyeongjo(
+                                  fontSize: 24,
                                   color: Colors.white,
-                                  fontWeight: FontWeight.bold)),
+                                  fontWeight: FontWeight.bold
+                              )),
                           TextSpan(
-                              text: '가 끝나면 나는 당장',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontFamily: "NanumSquareRound",
-                                color: Colors.white,)),
+                              text: '가 끝나면 나는',
+                              style: GoogleFonts.nanumMyeongjo(
+                                  fontSize: 24,
+                                  color: Colors.white
+                              )
+                          )
                         ],
                       ),
                     ),
@@ -166,40 +172,45 @@ class _MainPageState extends State<MainPage> {
                     Container(
                         width: 300,
                         height: 70,
-                        child: CupertinoTextField(
+                        child: TextField(
                           controller: _contentTextEditingController,
                           maxLength: _maxContentLength,
-                          placeholder: "하고싶은 일을 적어주세요",
-                          maxLines: 5,
-                          padding: EdgeInsets.all(12),
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: "NanumSquareRound",
-                              fontWeight: FontWeight.normal
+                          maxLines: 1,
+                          decoration: InputDecoration(
+                              counterText: "",
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.zero,
+                                borderSide: BorderSide(
+                                  width: 0,
+                                  style: BorderStyle.none,
+                                ),
+                              ),
+                              //labelText: '하고싶은 일을 적어주세요',
+                              hintText: '하고싶은 일을 적어주세요',
+                              hintStyle: TextStyle(
+                                  color: Color.fromARGB(255, 198, 198, 198)
+                              ),
+                              contentPadding: EdgeInsets.only(left: 18,top: 12,bottom: 12,right: 12)
                           ),
+
+                          style:  GoogleFonts.nanumMyeongjo(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                          ),
+
+                          /*
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: "NanumMyeongjo",
+                              fontWeight: FontWeight.bold
+                          ),*/
+
                         )
 
                     ),
 
-                    SizedBox(
-                      height: 15,
-                    ),
-
-                    Container(
-                      width: 300,
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "($_currentContentTextLength/$_maxContentLength)",
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.white
-                        ),
-                      ),
-                    ),
-
-                    SizedBox(
-                      height: 15,
-                    ),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -207,46 +218,52 @@ class _MainPageState extends State<MainPage> {
                         Text(
                           "By",
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold
+                            color: Colors.white,
+                            fontSize: 20,
                           ),
                         ),
 
                         SizedBox(width: 15),
 
                         Container(
-                          width: 150,
-                          child: CupertinoTextField(
+                          width: 180,
+                          child: TextField(
                             maxLength: _maxAuthorLength,
                             controller: _authorTextEditingController,
-                            placeholder: "이름을 적어주세요",
-                            padding: EdgeInsets.all(12),
-                            style: TextStyle(
-                                fontFamily: "NanumSquareRound",
-                                fontSize: 14
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.zero,
+                                borderSide: BorderSide(
+                                  width: 0,
+                                  style: BorderStyle.none,
+                                ),
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.only(left: 18,top: 12,bottom: 12,right: 12),
+                              hintText: "이름을 적어주세요",
+                              counterText: "",
+                              hintStyle: TextStyle(
+                                  color: Color.fromARGB(255, 198, 198, 198)
+                              ),
+
                             ),
+
+                            style:  GoogleFonts.nanumMyeongjo(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold
+                            ),
+
                           ),
                         ),
 
                         SizedBox(width: 15),
-
-                        Container(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            "($_currentAuthorTextLength/$_maxAuthorLength)",
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.white
-                            ),
-                          ),
-                        ),
 
                       ],
                     ),
 
                     SizedBox(
-                      height: 30,
+                      height: 18,
                     ),
 
                     RaisedButton(
@@ -255,22 +272,17 @@ class _MainPageState extends State<MainPage> {
                         showItemRegisterDialog();
 
                       },
-                      color: Colors.black,
+                      color: Color.fromARGB(255, 34, 34, 34),
+                      elevation: 5,
                       child: Text(
                         "소원빌기",
-                        style: TextStyle(
+                        style: GoogleFonts.nanumMyeongjo(
                             color: Colors.white,
-                            fontFamily: "NanumSquareRound",
                             fontWeight: FontWeight.bold
-
                         ),
                       ),
                       padding: EdgeInsets.only(left: 60, right: 60, top: 20, bottom: 20),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)
-                      ),
                     )
-
 
                   ],
                 ),
@@ -281,7 +293,7 @@ class _MainPageState extends State<MainPage> {
 
 
         Container(
-          color: Colors.black45,
+          color: Colors.transparent,
           height: 36,
           child: Row(
             children: [
@@ -291,12 +303,11 @@ class _MainPageState extends State<MainPage> {
                 child: Container(
                   alignment: Alignment.center,
                   child: Text(
-                    "💰BILLI",
+                    "BILLI",
                     style: TextStyle(
                         color: Colors.white,
-                        fontFamily: "NanumSquareRound",
+                        fontFamily: "SpaceMono",
                         fontWeight: FontWeight.bold
-
                     ),
                   ),
                 ),
@@ -305,13 +316,12 @@ class _MainPageState extends State<MainPage> {
               Flexible(
                 flex: 1,
                 child: Container(
-                  width: MediaQuery.of(context).size.width * 0.33,
                   alignment: Alignment.center,
                   child: Text(
-                    "After Covid-19",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
+                      "After Covid-19",
+                      style: GoogleFonts.notoSans(
+                          color: Colors.white
+                      )
                   ),
                 ),
               ),
@@ -341,33 +351,42 @@ class _MainPageState extends State<MainPage> {
 
           SizedBox(height: 32),
 
-          AnimatedFlipCounter(
-            duration: Duration(milliseconds: 1000),
-            value: _totalItemCntInSvr, /* pass in a number like 2014 */
-            color: Colors.black,
-            size: 50,
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+
+              AnimatedFlipCounter(
+                duration: Duration(milliseconds: 1000),
+                value: _totalItemCntInSvr, /* pass in a number like 2014 */
+                color: Colors.black,
+                size: 24,
+              )
+
+              ,Text(
+                "개의 소망이 모여",
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+            ],
           ),
 
-          SizedBox(height: 8),
 
-          Text(
-            "개의 소망이 모여",
-            style: TextStyle(
-              fontSize: 18,
-            ),
-          ),
 
           SizedBox(height: 8),
 
           Text(
             "애프터 코로나를 기원합니다.",
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 24,
             ),
           ),
 
           SizedBox(
-            height: 16,
+            height: 32,
           ),
 
           getMessageCards()
@@ -391,10 +410,15 @@ class _MainPageState extends State<MainPage> {
       decoration: BoxDecoration(
 
       ),
-      width: double.infinity,
+
       alignment: Alignment.center,
-      height: 50,
-      child: Text("Copyright 2021. Team BILLI All right reserved"),
+      height: 60,
+      child: Text(
+        "Copyright 2021. Team BILLI All right reserved",
+        style: TextStyle(
+            fontFamily: "NotoSans"
+        ),
+      ),
     );
   }
 
