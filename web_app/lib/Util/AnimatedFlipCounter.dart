@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AnimatedFlipCounter extends StatelessWidget {
   final int value;
@@ -99,10 +100,9 @@ class _SingleDigitFlipCounter extends StatelessWidget {
           opacity: opacity,
           child: Text(
             "$digit",
-            style: TextStyle(
+            style: GoogleFonts.nanumMyeongjo(
                 fontSize: height,
                 color: color,
-                fontFamily: "NanumMyeongjo",
                 fontWeight: FontWeight.bold
             ),
             textAlign: TextAlign.center,

@@ -338,9 +338,9 @@ class _MainPageState extends State<MainPage> {
                   alignment: Alignment.center,
                   child: Text(
                       "After Covid-19",
-                      style: GoogleFonts.notoSans(
-                          color: Colors.white
-                      )
+                    style: TextStyle(
+                      color: Colors.white
+                    ),
                   ),
                 ),
               ),
@@ -385,10 +385,11 @@ class _MainPageState extends State<MainPage> {
 
               ,Text(
                 "개의 소망이 모여",
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold
-                ),
+                style:
+                  GoogleFonts.nanumMyeongjo(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold
+                  )
               ),
             ],
           ),
@@ -399,9 +400,9 @@ class _MainPageState extends State<MainPage> {
 
           Text(
             "애프터 코로나를 기원합니다.",
-            style: TextStyle(
+            style: GoogleFonts.nanumMyeongjo(
               fontSize: 24,
-            ),
+            )
           ),
 
           SizedBox(
@@ -434,9 +435,6 @@ class _MainPageState extends State<MainPage> {
       height: 60,
       child: Text(
         "Copyright 2021. Team BILLI All right reserved",
-        style: TextStyle(
-            fontFamily: "NotoSans"
-        ),
       ),
     );
   }

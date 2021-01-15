@@ -18,9 +18,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "After Corona-19",
-      theme: ThemeData(
-          fontFamily: 'NanumMyeongjo',
-      ),
       debugShowCheckedModeBanner: false,
       home: MainPage(),
     );

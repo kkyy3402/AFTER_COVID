@@ -40,10 +40,10 @@ getImagedCardView(CardItemModel cardItem) {
                       child: Text(
                         cardItem.contents,
                         textAlign: TextAlign.left,
-                        style: TextStyle(
+                        style: GoogleFonts.nanumMyeongjo(
                           fontSize: 12 ,
                           fontWeight: FontWeight.w100,
-                        ),
+                        )
                       ),
                       width: double.infinity,
                     )
@@ -59,9 +59,9 @@ getImagedCardView(CardItemModel cardItem) {
                     margin:EdgeInsets.only(bottom: 16,right: 8, top: 16),
                     child: Text(
                       "by. " + cardItem.createdBy,
-                      style: TextStyle(
+                      style: GoogleFonts.nanumMyeongjo(
                           fontSize: 12
-                      ),
+                      )
                     )
                 )
 

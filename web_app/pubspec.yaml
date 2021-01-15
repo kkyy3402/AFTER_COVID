@@ -72,25 +72,25 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: NanumSquareRound
-      fonts:
-        - asset: assets/fonts/NanumSquareRoundB.ttf
-        - asset: assets/fonts/NanumSquareRoundEB.ttf
-        - asset: assets/fonts/NanumSquareRoundL.ttf
-        - asset: assets/fonts/NanumSquareRoundR.ttf
-
-    - family: NanumMyeongjo
-      fonts:
-        - asset: assets/fonts/NanumMyeongjo.ttf
-
-    - family: SpaceMono
-      fonts:
-        - asset: assets/fonts/SpaceMono-Regular.ttf
-
-    - family: NotoSans
-      fonts:
-        - asset: assets/fonts/NotoSansCJKkr-Regular.ttf
+#  fonts:
+#    - family: NanumSquareRound
+#      fonts:
+#        - asset: assets/fonts/NanumSquareRoundB.ttf
+#        - asset: assets/fonts/NanumSquareRoundEB.ttf
+#        - asset: assets/fonts/NanumSquareRoundL.ttf
+#        - asset: assets/fonts/NanumSquareRoundR.ttf
+#
+#    - family: NanumMyeongjo
+#      fonts:
+#        - asset: assets/fonts/NanumMyeongjo.ttf
+#
+#    - family: SpaceMono
+#      fonts:
+#        - asset: assets/fonts/SpaceMono-Regular.ttf
+#
+#    - family: NotoSans
+#      fonts:
+#        - asset: assets/fonts/NotoSansCJKkr-Regular.ttf
 
 
   #       - asset: fonts/Schyler-Italic.ttf
