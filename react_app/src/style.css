@@ -1,0 +1,18 @@
+
+.mainTopView{
+    width: max-content;
+    background: #61dafb;
+    height: 580px;
+    padding: 0px;
+}
+
+
+.navBar{
+    margin: unset;
+    width: max-content;
+    background: beige;
+    color: white;
+    height: 61px;
+    line-height: 61px;
+    margin: 0px;
+}
