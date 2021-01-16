@@ -6,16 +6,51 @@ function App() {
     return (
         <div className="App">
 
-            <Container
+            <div
                 className="mainTopView"
             >
-                <Container
+                <div
                     className="navBar"
                 >
-                    <h>dd</h>
 
-                </Container>
-            </Container>
+                    <div
+                        className="navBarItem"
+                    >BILLI</div>
+
+                    <div
+                        className="navBarItem"
+                    >After COVID-19</div>
+
+                    <div
+                        className="navBarItem"
+                    >
+                    </div>
+
+
+                </div>
+
+                <div className="formContainer">
+
+                    <div className="moonImg"></div>
+
+                    <h3>코로나가 끝나면 나는 당장</h3>
+                    <input className="textInputForm" placeholder="하고 싶은 일을 적어주세요."/>
+
+                    <br/>
+
+                    <input className="textInputForm" placeholder="이름을 입력해주세요."/>
+
+                    <br/>
+
+                    <button className="submitBtn">
+                        소원빌기
+                    </button>
+
+
+
+                </div>
+
+            </div>
 
         </div>
     );

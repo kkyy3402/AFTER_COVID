@@ -1,19 +1,55 @@
-
 .mainTopView{
-    width: max-content;
-    background: #61dafb;
+    width: 100%;
     height: 580px;
-    padding: 0px;
-    background-image: url("https://github.com/kkyy3402/AFTER_COVID/blob/main/react_app/src/images/top_bg.png?raw=true");
-
+    background-image: url("https://github.com/kkyy3402/AFTER_COVID/blob/main/react_app/src/images/sky.png?raw=true");
+    object-fit: fill;
 }
 
 
 .navBar{
     margin: unset;
-    width: max-content;
+    width: 100%;
     background: transparent;
     height: 61px;
     line-height: 61px;
     margin: 0px;
+    display: flex;
+}
+
+.navBarItem{
+    flex: 1;
+    background: transparent;
+    text-align: center;
+}
+
+.formContainer{
+    display: inline-block;
+    text-align: center;
+}
+
+.textInputForm{
+    margin-top: 10px;
+    width: 568px;
+    height: 67px;
+    padding-left: 10px;
+    border-color: transparent;
+    font-weight: 700;
+    size: 28px;
+}
+
+.moonImg{
+    background-image: url("https://github.com/kkyy3402/AFTER_COVID/blob/main/react_app/src/images/moon.png?raw=true");
+    width: 105px;
+    height: 105px;
+}
+
+.submitBtn{
+    width: 236px;
+    height: 57px;
+    margin-top: 30px;
+    padding: 16px 28px 16px 28px;
+    border-color: transparent;
+
+    background: black;
+    color: white;
 }
