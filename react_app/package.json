@@ -8,9 +8,12 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.0",
+    "digit-roll-react": "^1.1.0",
     "react": "^17.0.1",
+    "react-async": "^10.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
+    "react-stack-grid": "^0.7.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
@@ -36,5 +39,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "axios-react": "^2.0.2"
   }
 }
