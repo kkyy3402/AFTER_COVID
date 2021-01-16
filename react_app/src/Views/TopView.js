@@ -4,10 +4,19 @@ import InputWrapper from "../Components/InputWrapper";
 import SizedBox from "../Components/SizedBox";
 import ButtonWrapper from "../Components/ButtonWrapper";
 import Image from "../Components/ImageWrapper";
+import Modal from 'react-modal';
 
 function TopView() {
 
     //const [str, setStr] = useState("Hi");
+    const [modalVisible, setModalVisible] = useState(false)
+
+    const openModal = () => {
+        setModalVisible(true)
+    }
+    const closeModal = () => {
+        setModalVisible(false)
+    }
 
     return (
         <div className="mainTopView">
@@ -35,7 +44,17 @@ function TopView() {
                 <SizedBox height={10}/>
                 <InputWrapper placeholder="이름을 입력해d주세요." fontFamily="Nanum Myeongjo" fontSize={30}/>
 
-                <ButtonWrapper text="소원빌기" fontFamily="Nanum Myeongjo"/>
+                <ButtonWrapper text="소원빌기" fontFamily="Nanum Myeongjo" onClick={
+                    () => {
+                        openModal()
+                    }
+                }/>
+
+
+
+                {
+
+                }
 
 
 

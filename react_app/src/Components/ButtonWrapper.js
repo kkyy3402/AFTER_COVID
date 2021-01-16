@@ -1,6 +1,6 @@
 import React from "react";
 
-function ButtonWrapper({text, fontFamily}){
+function ButtonWrapper({text, fontFamily, onClick}){
 
     const style = {
         width: 236,
@@ -14,7 +14,7 @@ function ButtonWrapper({text, fontFamily}){
     }
     return(
         <div>
-            <button style={style}>{text}</button>
+            <button style={style} onClick={onClick}>{text}</button>
         </div>
     )
 }

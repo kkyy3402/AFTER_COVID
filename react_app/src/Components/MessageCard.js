@@ -15,7 +15,6 @@ function MessageCard(){
         height: 400,
         display: "inline-block",
         position: 'relative',
-
         backgroundImage: 'url("https://github.com/kkyy3402/AFTER_COVID/blob/main/web_app/assets/imgs/card_background1.png?raw=true")',
         bottom:0,
         right:0,

@@ -2,33 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2ab0c40-3f28-4854-835c-6293d5cc159c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/6.7/fileChanges/last-build.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/6.7/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/configuration-cache/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/vcs-1/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/ButtonWrapper.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/ImageWrapper.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/InputWrapper.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/LineDivider.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/MessageCard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/NavBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/SizedBox.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/TextWrapper.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/CardItemModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Views/BottomView.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Views/BottomView.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Views/TopView.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Views/Modal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/ButtonWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/ButtonWrapper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/MessageCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/MessageCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Views/BottomView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/BottomView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Views/TopView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/TopView.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,17 +69,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Gradle.C:/Users/gangyeolkim/Desktop/Projects/AFTER_COVID/react_app">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="C:/Users/gangyeolkim/Desktop/Projects/AFTER_COVID/react_app" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -124,8 +95,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Node.js.App.js" />
       <item itemvalue="Gradle.C:/Users/gangyeolkim/Desktop/Projects/AFTER_COVID/react_app" />
+      <item itemvalue="Node.js.App.js" />
     </list>
     <recent_temporary>
       <list>
@@ -142,7 +113,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610780485512</updated>
-      <workItem from="1610780488159" duration="23236000" />
+      <workItem from="1610780488159" duration="24672000" />
+      <workItem from="1610806136630" duration="441000" />
     </task>
     <servers />
   </component>
@@ -159,6 +131,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

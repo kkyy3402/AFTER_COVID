@@ -51,8 +51,8 @@ function BottomView() {
         )
     }
 
-    //fetchData();
-    getDiaryItems();
+    //TODO: 무한루프 도는 현상 있음.
+    //getDiaryItems();
 
 
     return (
