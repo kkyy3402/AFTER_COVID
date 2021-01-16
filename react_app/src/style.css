@@ -4,14 +4,15 @@
     background: #61dafb;
     height: 580px;
     padding: 0px;
+    background-image: url("https://github.com/kkyy3402/AFTER_COVID/blob/main/react_app/src/images/top_bg.png?raw=true");
+
 }
 
 
 .navBar{
     margin: unset;
     width: max-content;
-    background: beige;
-    color: white;
+    background: transparent;
     height: 61px;
     line-height: 61px;
     margin: 0px;
