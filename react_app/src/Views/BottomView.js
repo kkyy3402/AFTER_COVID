@@ -15,7 +15,10 @@ function getDigitCnt(num){
 
 function BottomView() {
 
-    async function getDiaryItems() {
+    //const [itemCnt, setItemCnt] = useState(0);
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
         fetch("http://kkyy3402.iptime.org:21000/rest/getDiaryList?startIdx=0&reqCnt=10")
             .then(res => res.json())
             .then(
@@ -23,16 +26,13 @@ function BottomView() {
                     console.log(data)
                     let itemCnt = data["total_count"];
                     setItems(data["data"])
-                    //console.log(data["total_count"]);
+                    console.log(items)
                 },
                 error => {
 
                 }
             )
-    }
-
-    //const [itemCnt, setItemCnt] = useState(0);
-    const [items, setItems] = useState([]);
+    },[]);
 
 
     const style = {
