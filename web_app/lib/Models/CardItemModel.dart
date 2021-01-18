@@ -13,25 +13,29 @@ class CardItemModel {
     this.contents,
     this.createdBy,
     this.createdAt,
-    this.backgroundIdx
+    this.backgroundIdx,
+    this.email
   });
 
   String contents;
   String createdBy;
   String createdAt;
   int backgroundIdx;
+  String email;
 
   factory CardItemModel.fromJson(Map<String, dynamic> json) => CardItemModel(
       contents: json["contents"],
       createdBy: json["createdBy"],
       createdAt: json["createdAt"],
-      backgroundIdx: json["backgroundIdx"]
+      backgroundIdx: json["backgroundIdx"],
+      email : json["email"]
   );
 
   Map<String, dynamic> toJson() => {
     "contents": contents,
     "createdBy": createdBy,
     "createdAt": createdAt,
-    "backgroundIdx": backgroundIdx
+    "backgroundIdx": backgroundIdx,
+    "email" : email
   };
 }

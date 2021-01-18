@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:web_app/DEFINES.dart';
 import 'package:web_app/Models/CardItemModel.dart';
+import 'package:web_app/Util/Util.dart';
 import 'package:web_app/Widgets/CardView.dart';
 
 class Constants{
@@ -300,3 +301,192 @@ class _ShowItemPopupState extends State<ShowItemPopup> {
     );
   }
 }
+
+class EmailRegisterPopup extends StatefulWidget {
+
+  CardItemModel item;
+
+  EmailRegisterPopup(CardItemModel item){
+    this.item = item;
+  }
+
+  @override
+  _EmailRegisterPopupState createState() => _EmailRegisterPopupState();
+}
+
+class _EmailRegisterPopupState extends State<EmailRegisterPopup> {
+
+  TextEditingController _emailTextFieldController;
+  bool _checkBoxChecked = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _emailTextFieldController = TextEditingController();
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12)
+          ),
+          width: 1169,
+          height: 388,
+          child: Container(
+            child: Container(
+              width: 843,
+              height: 288,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+
+                  Text(
+                    "이메일 주소를 알려주시면 코로나가 끝났을 때 알려드릴게요.",
+                    style: GoogleFonts.nanumMyeongjo(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 16,
+                  ),
+
+                  Container(
+                    width: 843,
+                    child: TextField(
+                      controller: _emailTextFieldController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.zero,
+                          borderSide: BorderSide(
+                            width: 1,
+                            style: BorderStyle.none,
+                          ),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        contentPadding: EdgeInsets.only(left: 18,top: 12,bottom: 12,right: 12),
+                        hintText: "이름을 적어주세요",
+                        counterText: "",
+                        hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 198, 198, 198)
+                        ),
+
+                      ),
+                      style:  GoogleFonts.nanumMyeongjo(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 16,
+                  ),
+
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Checkbox(value: _checkBoxChecked, onChanged: (value){
+                          setState(() {
+                            _checkBoxChecked = value;
+                          });
+
+                        }),
+
+                        Tooltip(
+                          message: "개인정보 수집 및 이용에 대한 내용입니다.",
+                          child: Text(
+                            "개인정보 수집 및 이용",
+                            style: GoogleFonts.nanumMyeongjo(
+                                color: Colors.blue,
+                                decoration: TextDecoration.underline
+                            ),
+                          ),
+                        ),
+
+                        Text(
+                          "에 동의합니다.",
+                          style: GoogleFonts.nanumMyeongjo(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline
+                          ),
+                        )
+                      ]
+                  ),
+
+                  SizedBox(
+                    height: 16,
+                  ),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+
+                      RaisedButton(
+                        onPressed: (){
+
+                          if(_emailTextFieldController.text.length == 0){
+                            showToast("이메일을 입력해주세요.");
+                          }else{
+                            this.widget.item.email = _emailTextFieldController.text;
+
+                            print("this.widget.item.email ${this.widget.item.email}");
+                            print("this.widget.item.backgroundIdx ${this.widget.item.backgroundIdx}");
+                            print("this.widget.item.createdBy ${this.widget.item.createdBy}");
+                            print("this.widget.item.contents ${this.widget.item.contents}");
+                            print("this.widget.item.createdAt ${this.widget.item.createdAt}");
+                            Navigator.pop(context, this.widget.item);
+                          }
+
+                        },
+                        color: Color.fromARGB(255, 34, 34, 34),
+                        elevation: 5,
+                        child: Text(
+                          "등록하기",
+                          style: GoogleFonts.nanumMyeongjo(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+                        padding: EdgeInsets.only(left: 60, right: 60, top: 20, bottom: 20),
+                      ),
+
+                      CupertinoButton(
+                          child: Text(
+                            "아니오, 괜찮습니다.",
+                            style: GoogleFonts.nanumMyeongjo(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16
+                            ),
+                          ),
+                          onPressed: (){
+                              Navigator.pop(context);
+                          }
+                      )
+
+                    ],
+                  )
+
+
+
+                ],
+              ),
+            ),
+          ),
+
+        )
+    );
+  }
+}
+

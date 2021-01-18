@@ -35,8 +35,12 @@ class _MainPageState extends State<MainPage> {
   int _totalItemCntInSvr = 0; //서버에 있는 전체 아이템 갯수
 
   final ScrollController _scrollController = ScrollController();
+  final ScrollController _contentScrollController = ScrollController();
+
   TextEditingController _contentTextEditingController;
   TextEditingController _authorTextEditingController;
+
+  double _prevPosition = 0.0;
 
   bool _screenOnTop = true; // 화면이 가장 위에 있는지 여부
 
@@ -57,6 +61,7 @@ class _MainPageState extends State<MainPage> {
   void dispose() {
     _contentTextEditingController.dispose();
     _authorTextEditingController.dispose();
+    _contentScrollController.dispose();
     //_contentUpdateCounter.cancel();
     _scrollController.dispose();
     super.dispose();
@@ -482,6 +487,7 @@ class _MainPageState extends State<MainPage> {
         width: 260 * columnCnt.toDouble(),
         child: GridView.count(
           shrinkWrap: true,
+          controller: _contentScrollController,
           physics: BouncingScrollPhysics(),
           crossAxisCount: columnCnt,
           children: List.generate(_cardItemList.length, (index) {
@@ -555,12 +561,11 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
-  void reqInsertDiaryToSvr(int selectedColorIdx) async{
-    CardItemModel item = CardItemModel(
-        contents: _contentTextEditingController.text,
-        createdBy: _authorTextEditingController.text,
-        backgroundIdx: selectedColorIdx
-    );
+  void reqInsertDiaryToSvr(CardItemModel item) async{
+
+    print("item email : ${item.email}");
+    print("item backgroundIdx : ${item.backgroundIdx}");
+    print("item backgroundIdx : ${item.backgroundIdx}");
 
     setState(() {
       //첫번째 항목에 바로 추가한다.
@@ -584,6 +589,34 @@ class _MainPageState extends State<MainPage> {
 
   void initScrollListener() {
 
+
+
+    _contentScrollController.addListener(() {
+      print(_contentScrollController.offset);
+
+      _prevPosition = _contentScrollController.offset;
+      print("_prevPosition : ${_prevPosition}");
+      print("position m: ${_contentScrollController}");
+
+      if(_contentScrollController.offset == 0) {
+        if(Platform.isIOS || Platform.isAndroid){
+          showToast("스크롤이 올라갑니다 :)");
+          _scrollController.animateTo(0.0, duration: Duration(milliseconds: 1000), curve: Curves.linearToEaseOut);
+        }
+      }
+
+      if(_contentScrollController.offset == _contentScrollController.position.maxScrollExtent){
+        if(Platform.isIOS || Platform.isAndroid) {
+          showToast("스크롤이 내려갑니다 :)");
+          _scrollController.animateTo(
+              _scrollController.position.maxScrollExtent,
+              duration: Duration(milliseconds: 1000),
+              curve: Curves.linearToEaseOut);
+        }
+      }
+
+    });
+
     _scrollController.addListener(() {
       if(_scrollController.offset < 100){
         setState(() {
@@ -594,6 +627,8 @@ class _MainPageState extends State<MainPage> {
           _screenOnTop = false;
         });
       }
+
+      print("_scrollController : ${_scrollController.offset}");
 
       if(_scrollController.position.maxScrollExtent == _scrollController.offset){
         checkAdditionalItemCnt();
@@ -656,7 +691,52 @@ class _MainPageState extends State<MainPage> {
         print("ㅎㅎㅎ11"),
         if(colorIdx != -1){
           print("ㅎㅎㅎ"),
-          reqInsertDiaryToSvr(colorIdx)
+
+          //
+          //reqInsertDiaryToSvr(colorIdx)
+
+          showDialog(
+            context: context,
+            builder: (BuildContext context){
+              return EmailRegisterPopup(
+                item
+              );
+            }
+          ).then((item) {
+            if(item != null){
+              print("item : ${item}");
+
+            }
+          })
+
+          /*
+           showDialog(context: context,
+        builder: (BuildContext context){
+          return ItemRegisterDialogBox(
+              item: item
+          );
+        }
+    ).then((colorIdx) => {
+
+      if(colorIdx != null){
+        print("ㅎㅎㅎ11"),
+        if(colorIdx != -1){
+          print("ㅎㅎㅎ"),
+
+          //
+          //reqInsertDiaryToSvr(colorIdx)
+        }else{
+          print("취소")
+        }
+      }else{
+        print("22222"),
+      }
+
+
+    }
+           */
+
+
         }else{
           print("취소")
         }
