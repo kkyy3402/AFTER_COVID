@@ -705,7 +705,7 @@ class _MainPageState extends State<MainPage> {
           ).then((item) {
             if(item != null){
               print("item : ${item}");
-
+              reqInsertDiaryToSvr(item);
             }
           })
 

@@ -26,7 +26,7 @@ class NetworkManager {
   }
 
   Future<bool> insertItem(CardItemModel item) async{
-    String reqUrl = REST.BASE_URL+REST.CREATE+"?createdBy=${item.createdBy}&contents=${item.contents}&backgroundIdx=${item.backgroundIdx}";
+    String reqUrl = REST.BASE_URL+REST.CREATE+"?createdBy=${item.createdBy}&contents=${item.contents}&backgroundIdx=${item.backgroundIdx}&emailAddress=${item.email}";
 
     print("reqURL : $reqUrl");
 

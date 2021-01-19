@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,8 @@ import 'package:web_app/DEFINES.dart';
 import 'package:web_app/Models/CardItemModel.dart';
 import 'package:web_app/Util/Util.dart';
 import 'package:web_app/Widgets/CardView.dart';
+import 'dart:convert';
+import 'dart:convert' show utf8, base64;
 
 class Constants{
   Constants._();
@@ -465,7 +468,13 @@ class _EmailRegisterPopupState extends State<EmailRegisterPopup> {
                         if(_emailTextFieldController.text.length == 0){
                           showToast("이메일을 입력해주세요.");
                         }else{
-                          this.widget.item.email = _emailTextFieldController.text;
+
+                          final encodedEmail = base64.encode(utf8.encode(_emailTextFieldController.text));
+                          this.widget.item.email = encodedEmail;
+
+                          final decoded = utf8.decode(base64.decode(encodedEmail));
+                          print("decoded : $decoded");
+                          print("decoded : $decoded");
 
                           print("this.widget.item.email ${this.widget.item.email}");
                           print("this.widget.item.backgroundIdx ${this.widget.item.backgroundIdx}");
