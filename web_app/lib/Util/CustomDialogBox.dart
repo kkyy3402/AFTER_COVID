@@ -69,7 +69,7 @@ class _ItemRegisterDialogBoxState extends State<ItemRegisterDialogBox> {
               ),
 
               //예시
-              getImagedCardView(this.widget.item),
+              getImagedCardView(this.widget.item, context),
 
               Container(
                 padding: EdgeInsets.all(20),
@@ -265,7 +265,7 @@ class _ShowItemPopupState extends State<ShowItemPopup> {
                     },
                   ),
                 ),
-                getImagedCardView(this.widget.item),
+                getImagedCardView(this.widget.item, context),
 
                 Container(
                   width: 200,
@@ -427,7 +427,7 @@ class _EmailRegisterPopupState extends State<EmailRegisterPopup> {
 
                       InkWell(
                         onTap: (){
-                          launch('https://docs.flutter.io/flutter/services/UrlLauncher-class.html');
+                          launch('https://www.notion.so/57c12e6b0f8c453a913f0356ae233dc3');
                         },
                         child: Text(
                           "개인정보 수집 및 이용",
@@ -468,20 +468,7 @@ class _EmailRegisterPopupState extends State<EmailRegisterPopup> {
                         if(_emailTextFieldController.text.length == 0){
                           showToast("이메일을 입력해주세요.");
                         }else{
-
-                          final encodedEmail = base64.encode(utf8.encode(_emailTextFieldController.text));
-                          this.widget.item.email = encodedEmail;
-
-                          final decoded = utf8.decode(base64.decode(encodedEmail));
-                          print("decoded : $decoded");
-                          print("decoded : $decoded");
-
-                          print("this.widget.item.email ${this.widget.item.email}");
-                          print("this.widget.item.backgroundIdx ${this.widget.item.backgroundIdx}");
-                          print("this.widget.item.createdBy ${this.widget.item.createdBy}");
-                          print("this.widget.item.contents ${this.widget.item.contents}");
-                          print("this.widget.item.createdAt ${this.widget.item.createdAt}");
-                          Navigator.pop(context, this.widget.item);
+                          requestToSvr();
                         }
 
                       },
@@ -507,7 +494,7 @@ class _EmailRegisterPopupState extends State<EmailRegisterPopup> {
                           ),
                         ),
                         onPressed: (){
-                          Navigator.pop(context);
+                          requestToSvr();
                         }
                     )
 
@@ -522,6 +509,22 @@ class _EmailRegisterPopupState extends State<EmailRegisterPopup> {
 
         )
     );
+  }
+
+  void requestToSvr() {
+    final encodedEmail = base64.encode(utf8.encode(_emailTextFieldController.text));
+    this.widget.item.email = encodedEmail;
+
+    final decoded = utf8.decode(base64.decode(encodedEmail));
+    print("decoded : $decoded");
+    print("decoded : $decoded");
+
+    print("this.widget.item.email ${this.widget.item.email}");
+    print("this.widget.item.backgroundIdx ${this.widget.item.backgroundIdx}");
+    print("this.widget.item.createdBy ${this.widget.item.createdBy}");
+    print("this.widget.item.contents ${this.widget.item.contents}");
+    print("this.widget.item.createdAt ${this.widget.item.createdAt}");
+    Navigator.pop(context, this.widget.item);
   }
 }
 

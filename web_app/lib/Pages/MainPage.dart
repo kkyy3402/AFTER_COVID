@@ -14,6 +14,7 @@ import 'package:web_app/Util/AnimatedFlipCounter.dart';
 import 'package:web_app/Util/CustomDialogBox.dart';
 import 'package:web_app/Util/Util.dart';
 import 'package:web_app/Widgets/CardView.dart';
+import 'package:web_app/Widgets/ShowContentsPopup.dart';
 
 import '../DEFINES.dart';
 
@@ -494,14 +495,8 @@ class _MainPageState extends State<MainPage> {
 
             return GestureDetector(
               onTap: (){
-                /*
-                showDialog(context: context,
-                    builder: (BuildContext context){
-                      return ItemRegisterDialogBox(item:_cardItemList[index]);
-                    }
-                );*/
               },
-              child: getImagedCardView(_cardItemList[index])
+              child: getImagedCardView(_cardItemList[index], context)
             );
 
 
