@@ -2776,7 +2776,7 @@ babel-plugin-named-asset-import@^0.3.7:
   resolved "https://registry.yarnpkg.com/babel-plugin-named-asset-import/-/babel-plugin-named-asset-import-0.3.7.tgz#156cd55d3f1228a5765774340937afc8398067dd"
   integrity sha512-squySRkf+6JGnvjoUtDEjSREJEBirnXi9NqP6rjSYsylxQxqBTz+pkmf395i9E2zsvmYUaI40BHo6SqZUdydlw==
 
-"babel-plugin-styled-components@>= 1":
+"babel-plugin-styled-components@>= 1", babel-plugin-styled-components@^1.12.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-styled-components/-/babel-plugin-styled-components-1.12.0.tgz#1dec1676512177de6b827211e9eda5a30db4f9b9"
   integrity sha512-FEiD7l5ZABdJPpLssKXjBUJMYqzbcNzBowfXDCdJhOpbhWiewapUaY+LZGT8R4Jg2TwOjGjG4RKeyrO5p9sBkA==
@@ -5544,6 +5544,13 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
+
+gatsby-plugin-styled-components@^3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-styled-components/-/gatsby-plugin-styled-components-3.8.0.tgz#4779e7d7c96b5afd99e33cfa940e2903800fb7d4"
+  integrity sha512-okkPREI8eIAWNgXM6BGnmPXKqgol7vuiFrdnV5gXYgZ6yYexQhCEsaVkflX8C5REcXb85DgBtCi7Xww/mmoqOQ==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
 
 gensync@^1.0.0-beta.1:
   version "1.0.0-beta.2"
@@ -9698,6 +9705,11 @@ react-lifecycles-compat@^3.0.0:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+
+react-modal-hook@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-modal-hook/-/react-modal-hook-3.0.0.tgz#24b2ff2acf288ef25c11e4fb11b329458a823ea3"
+  integrity sha512-mNkJwgEtOoIabuILlWnGAto993WVkimZASBWk/rAGZ6tNIqjx4faQtNdr/X31vw+QGfKhspXc4vPi1jbfkk2Yg==
 
 react-modal@^3.12.1:
   version "3.12.1"

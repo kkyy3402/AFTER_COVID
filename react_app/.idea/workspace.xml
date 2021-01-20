@@ -4,7 +4,13 @@
     <list default="true" id="b2ab0c40-3f28-4854-835c-6293d5cc159c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/BottomView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/BottomView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/MessageCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/MessageCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Views/TopView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/TopView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,6 +114,7 @@
       <updated>1610780485512</updated>
       <workItem from="1610780488159" duration="24672000" />
       <workItem from="1610806136630" duration="441000" />
+      <workItem from="1610940855308" duration="1526000" />
     </task>
     <servers />
   </component>

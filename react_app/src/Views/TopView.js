@@ -42,15 +42,13 @@ function TopView() {
 
                 <InputWrapper fontSize={28} placeholder="하고 싶은 일을 적어주세요" fontFamily="Nanum Myeongjo"/>
                 <SizedBox height={10}/>
-                <InputWrapper placeholder="이름을 입력해d주세요." fontFamily="Nanum Myeongjo" fontSize={30}/>
+                <InputWrapper placeholder="이름을 입력해주세요." fontFamily="Nanum Myeongjo" fontSize={30}/>
 
                 <ButtonWrapper text="소원빌기" fontFamily="Nanum Myeongjo" onClick={
                     () => {
                         openModal()
                     }
                 }/>
-
-
 
                 {
 

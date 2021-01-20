@@ -495,8 +495,9 @@ class _MainPageState extends State<MainPage> {
 
             return GestureDetector(
               onTap: (){
+                print("HHH");
               },
-              child: getImagedCardView(_cardItemList[index], context)
+              child: getImagedCardViewForMainScreen(_cardItemList[index], context)
             );
 
 

@@ -2,8 +2,42 @@ import './App.css';
 import './style.css';
 import TopView from "./Views/TopView";
 import BottomView from "./Views/BottomView";
-import Modal from "react-modal";
 import React, {useState} from "react";
+import { ModalProvider } from "react-modal-hook";
+import ReactModal from "react-modal";
+import { useModal } from "react-modal-hook";
+
+function RegisterCardModal() {
+
+    const [isOpen , setIsOpen] = useState(true);
+
+    const registerPopupStyle = {
+        overlay:{
+            zIndex: 3,
+            backgroundColor:'lightGrey'
+        }
+    }
+
+    return (
+        <div>
+
+            <ReactModal
+                isOpen={isOpen}
+                style={registerPopupStyle}
+            >
+                <p>제목입니다.</p>
+                <button onClick={onCloseBtnTapped}>Hide modal</button>
+            </ReactModal>
+
+        </div>
+
+    );
+
+    function onCloseBtnTapped() {
+        setIsOpen(!isOpen)
+    }
+
+}
 
 function App() {
 
@@ -11,26 +45,7 @@ function App() {
 
     return (
         <div className="App">
-
-            <Modal
-                isOpen={false}
-                shouldCloseOverlayClick={false}
-                style={
-                    {
-                        overlay:{
-                            backgroundColor : 'grey'
-                        }
-                    }
-                }
-            >
-                <div>
-                    <h2>Mosdal title</h2>
-                    <p>Modal Body</p>
-                    <p>hi</p>
-                </div>
-
-            </Modal>
-
+            <RegisterCardModal/>
             <TopView/>
             <BottomView/>
         </div>

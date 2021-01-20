@@ -427,7 +427,7 @@ class _EmailRegisterPopupState extends State<EmailRegisterPopup> {
 
                       InkWell(
                         onTap: (){
-                          launch('https://www.notion.so/57c12e6b0f8c453a913f0356ae233dc3');
+                          launch('http://27.96.131.187/terms.html');
                         },
                         child: Text(
                           "개인정보 수집 및 이용",

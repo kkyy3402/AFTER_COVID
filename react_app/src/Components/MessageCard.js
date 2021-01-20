@@ -4,7 +4,6 @@ import LineDivider from "./LineDivider";
 function MessageCard(){
 
 
-
     const mainImgFrameStyle = {
         display: "inline"
     }
@@ -18,6 +17,7 @@ function MessageCard(){
         backgroundImage: 'url("https://github.com/kkyy3402/AFTER_COVID/blob/main/web_app/assets/imgs/card_background1.png?raw=true")',
         bottom:0,
         right:0,
+        zIndex : -1000
     }
 
     //하얀색 박스
