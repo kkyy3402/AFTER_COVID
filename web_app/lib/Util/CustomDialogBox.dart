@@ -516,14 +516,14 @@ class _EmailRegisterPopupState extends State<EmailRegisterPopup> {
     this.widget.item.email = encodedEmail;
 
     final decoded = utf8.decode(base64.decode(encodedEmail));
-    print("decoded : $decoded");
-    print("decoded : $decoded");
+    //print("decoded : $decoded");
+    //print("decoded : $decoded");
 
-    print("this.widget.item.email ${this.widget.item.email}");
-    print("this.widget.item.backgroundIdx ${this.widget.item.backgroundIdx}");
-    print("this.widget.item.createdBy ${this.widget.item.createdBy}");
-    print("this.widget.item.contents ${this.widget.item.contents}");
-    print("this.widget.item.createdAt ${this.widget.item.createdAt}");
+    //print("this.widget.item.email ${this.widget.item.email}");
+    //print("this.widget.item.backgroundIdx ${this.widget.item.backgroundIdx}");
+    //print("this.widget.item.createdBy ${this.widget.item.createdBy}");
+    //print("this.widget.item.contents ${this.widget.item.contents}");
+    //print("this.widget.item.createdAt ${this.widget.item.createdAt}");
     Navigator.pop(context, this.widget.item);
   }
 }

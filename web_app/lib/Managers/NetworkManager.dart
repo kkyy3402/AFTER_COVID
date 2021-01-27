@@ -28,14 +28,14 @@ class NetworkManager {
   Future<bool> insertItem(CardItemModel item) async{
     String reqUrl = REST.BASE_URL+REST.CREATE+"?createdBy=${item.createdBy}&contents=${item.contents}&backgroundIdx=${item.backgroundIdx}&emailAddress=${item.email}";
 
-    print("reqURL : $reqUrl");
+    //print("reqURL : $reqUrl");
 
 
     var response = await http.get(reqUrl);
     var resListData = json.decode(response.body);
 
     if(resListData["resultCode"] == 200){
-      print("등록 성공!");
+      //print("등록 성공!");
       return true;
     }else{
       return false;
@@ -47,7 +47,7 @@ class NetworkManager {
     String reqUrl = REST.BASE_URL + REST.GET_CNT;
     var response = await http.get(reqUrl);
     var itemCnt = json.decode(response.body)["data"];
-    print("[kky] totalItemCnt : $itemCnt");
+    //print("[kky] totalItemCnt : $itemCnt");
     return itemCnt;
 
   }

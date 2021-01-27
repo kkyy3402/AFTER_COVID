@@ -495,7 +495,7 @@ class _MainPageState extends State<MainPage> {
 
             return GestureDetector(
               onTap: (){
-                print("HHH");
+                //print("HHH");
               },
               child: getImagedCardViewForMainScreen(_cardItemList[index], context)
             );
@@ -559,9 +559,9 @@ class _MainPageState extends State<MainPage> {
 
   void reqInsertDiaryToSvr(CardItemModel item) async{
 
-    print("item email : ${item.email}");
-    print("item backgroundIdx : ${item.backgroundIdx}");
-    print("item backgroundIdx : ${item.backgroundIdx}");
+    //print("item email : ${item.email}");
+    //print("item backgroundIdx : ${item.backgroundIdx}");
+    //print("item backgroundIdx : ${item.backgroundIdx}");
 
     setState(() {
       //첫번째 항목에 바로 추가한다.
@@ -588,11 +588,11 @@ class _MainPageState extends State<MainPage> {
 
 
     _contentScrollController.addListener(() {
-      print(_contentScrollController.offset);
+      //print(_contentScrollController.offset);
 
       _prevPosition = _contentScrollController.offset;
-      print("_prevPosition : ${_prevPosition}");
-      print("position m: ${_contentScrollController}");
+      //print("_prevPosition : ${_prevPosition}");
+      //print("position m: ${_contentScrollController}");
 
       if(_contentScrollController.offset == 0) {
         if(Platform.isIOS || Platform.isAndroid){
@@ -624,7 +624,7 @@ class _MainPageState extends State<MainPage> {
         });
       }
 
-      print("_scrollController : ${_scrollController.offset}");
+      //print("_scrollController : ${_scrollController.offset}");
 
       if(_scrollController.position.maxScrollExtent == _scrollController.offset){
         checkAdditionalItemCnt();
@@ -654,11 +654,11 @@ class _MainPageState extends State<MainPage> {
   void checkAdditionalItemCnt() async {
     int totalItemCnt = await NetworkManager.getInstance.getTotalItemCnt();
     if(_cardItemList.length < totalItemCnt){
-      print("cardItemList.length : ${_cardItemList.length}, totalItemCnt : ${totalItemCnt}");
-      print("서버에 더 받을 아이템이 있습니다.");
+      //print("cardItemList.length : ${_cardItemList.length}, totalItemCnt : ${totalItemCnt}");
+      //print("서버에 더 받을 아이템이 있습니다.");
       getItemInfosFromSvr();
     }else{
-      print("서버에 더 받을 아이템이 없습니다.");
+      //print("서버에 더 받을 아이템이 없습니다.");
     }
 
   }
@@ -684,9 +684,9 @@ class _MainPageState extends State<MainPage> {
     ).then((colorIdx) => {
 
       if(colorIdx != null){
-        print("ㅎㅎㅎ11"),
+        //print("ㅎㅎㅎ11"),
         if(colorIdx != -1){
-          print("ㅎㅎㅎ"),
+          //print("ㅎㅎㅎ"),
 
           //
           //reqInsertDiaryToSvr(colorIdx)
@@ -700,7 +700,7 @@ class _MainPageState extends State<MainPage> {
             }
           ).then((item) {
             if(item != null){
-              print("item : ${item}");
+              //print("item : ${item}");
               reqInsertDiaryToSvr(item);
             }
           })
@@ -734,10 +734,10 @@ class _MainPageState extends State<MainPage> {
 
 
         }else{
-          print("취소")
+          //print("취소")
         }
       }else{
-        print("22222"),
+        //print("22222"),
       }
 
 
