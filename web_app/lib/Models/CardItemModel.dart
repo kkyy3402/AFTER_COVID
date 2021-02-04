@@ -14,7 +14,8 @@ class CardItemModel {
     this.createdBy,
     this.createdAt,
     this.backgroundIdx,
-    this.email
+    this.email,
+    this.isAd
   });
 
   String contents;
@@ -22,13 +23,14 @@ class CardItemModel {
   String createdAt;
   int backgroundIdx;
   String email;
+  bool isAd;
 
   factory CardItemModel.fromJson(Map<String, dynamic> json) => CardItemModel(
       contents: json["contents"],
       createdBy: json["createdBy"],
       createdAt: json["createdAt"],
       backgroundIdx: json["backgroundIdx"],
-      email : json["email"]
+      email : json["email"],
   );
 
   Map<String, dynamic> toJson() => {

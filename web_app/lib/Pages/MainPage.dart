@@ -548,6 +548,28 @@ class _MainPageState extends State<MainPage> {
     //cardItemList.clear();
     List<CardItemModel> items = await NetworkManager.getInstance.getItems(_cardItemList.length,50);
 
+
+
+    var adItem = CardItemModel(
+      contents: "22222",
+      createdBy: "아재",
+      backgroundIdx: 0,
+      createdAt: "",
+      isAd: true
+    );
+
+    var rng = new Random();
+    int offsetIdx = 0;
+    for (var idx = 0 ; idx < items.length ; idx++ ){
+      int randomInt = rng.nextInt(10) + 7;
+
+      if(randomInt + offsetIdx < items.length){
+        items.insert(randomInt + offsetIdx, adItem);
+        offsetIdx += randomInt;
+      }
+
+    }
+
     items.forEach((element) {
       _cardItemList.add(element);
     });

@@ -1,6 +1,7 @@
 //하단의 그리드 뷰를 불러오는
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:web_app/Util/Util.dart';
 import 'package:web_app/Widgets/ShowContentsPopup.dart';
 
 import '../DEFINES.dart';
@@ -66,12 +67,12 @@ getImagedCardView(CardItemModel cardItem, BuildContext context) {
                   Expanded(
                       child: Container(
                         child: Text(
-                          cardItem.contents,
-                          textAlign: TextAlign.left,
-                          style: GoogleFonts.nanumMyeongjo(
-                            fontSize: 12 ,
-                            fontWeight: FontWeight.w100,
-                          )
+                            cardItem.contents,
+                            textAlign: TextAlign.left,
+                            style: GoogleFonts.nanumMyeongjo(
+                              fontSize: 12 ,
+                              fontWeight: FontWeight.w100,
+                            )
                         ),
                         width: double.infinity,
                       )
@@ -86,10 +87,10 @@ getImagedCardView(CardItemModel cardItem, BuildContext context) {
                       alignment: Alignment.centerRight,
                       margin:EdgeInsets.only(bottom: 16,right: 8, top: 16),
                       child: Text(
-                        "by. " + cardItem.createdBy,
-                        style: GoogleFonts.nanumMyeongjo(
-                            fontSize: 12
-                        )
+                          "by. " + cardItem.createdBy,
+                          style: GoogleFonts.nanumMyeongjo(
+                              fontSize: 12
+                          )
                       )
                   )
 
@@ -117,7 +118,7 @@ getImagedCardView(CardItemModel cardItem, BuildContext context) {
 
 getImagedCardViewForMainScreen(CardItemModel cardItem, BuildContext context) {
 
-  return GestureDetector(
+  return !cardItem.isAd ? GestureDetector(
     onTap: (){
 
 
@@ -128,8 +129,8 @@ getImagedCardViewForMainScreen(CardItemModel cardItem, BuildContext context) {
             return Transform(
               transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
               child: Opacity(
-                opacity: a1.value,
-                child: ShowContentPopup(item: cardItem)
+                  opacity: a1.value,
+                  child: ShowContentPopup(item: cardItem)
               ),
             );
           },
@@ -218,6 +219,18 @@ getImagedCardViewForMainScreen(CardItemModel cardItem, BuildContext context) {
 
         ],
       ),
+    ),
+  ) :
+  InkWell(
+    onTap: (){
+      showToast("광고 페이지로 이동합니다.");
+    },
+    child: Container(
+      alignment: Alignment.center,
+      width: 200,
+      height: 100,
+      child: Image.asset("assets/imgs/ad_card.png")
+
     ),
   );
 }
