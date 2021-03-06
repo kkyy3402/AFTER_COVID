@@ -780,7 +780,7 @@ class _MainPageState extends State<MainPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               for(int columnIdx = 0 ; columnIdx < columnCnt ; columnIdx++)
-                _cardItemList.length != 0 ? getImagedCardViewForMainScreen(_cardItemList[columnIdx + rowIdx * columnCnt], context) : Container()
+                _cardItemList.length != 0 ? getImagedCardViewForMainScreen(_cardItemList[columnIdx + rowIdx * columnCnt], context, columnIdx + rowIdx * columnCnt) : Container()
             ],
           )
       ],

@@ -1,6 +1,7 @@
 //하단의 그리드 뷰를 불러오는
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:web_app/Util/Util.dart';
 import 'package:web_app/Widgets/ShowContentsPopup.dart';
 
@@ -8,6 +9,7 @@ import '../DEFINES.dart';
 import '../Models/CardItemModel.dart';
 import 'package:vector_math/vector_math.dart' as math;
 
+var adToggler = false;
 
 getImagedCardView(CardItemModel cardItem, BuildContext context) {
 
@@ -116,7 +118,7 @@ getImagedCardView(CardItemModel cardItem, BuildContext context) {
   );
 }
 
-getImagedCardViewForMainScreen(CardItemModel cardItem, BuildContext context) {
+getImagedCardViewForMainScreen(CardItemModel cardItem, BuildContext context, int itemIdx) {
 
   return !cardItem.isAd ? GestureDetector(
     onTap: (){
@@ -225,14 +227,13 @@ getImagedCardViewForMainScreen(CardItemModel cardItem, BuildContext context) {
   ) :
   InkWell(
     onTap: (){
-      showToast("광고 페이지로 이동합니다.");
+      itemIdx % 2 == 0 ? launch("https://cafe.naver.com/wanganmo/") : launch("https://docs.google.com/forms/d/e/1FAIpQLScJfUb_-KAazoPfwieQ5p2QNcZM5tDQIH3j9YS48DeAYWUMQA/viewform");
     },
     child: Container(
       alignment: Alignment.center,
       width: 240,
       height: 260,
-      child: Image.asset("assets/imgs/ad_card.png")
-
+      child: itemIdx % 2 == 0 ? Image.asset("assets/imgs/ad1.png") : Image.asset("assets/imgs/ad_card.png")
     ),
   );
 }
@@ -288,4 +289,9 @@ getExampleCardView(String author, String contents, int colorIdx) {
       ),
     ),
   );
+}
+
+bool getAdToggleState(){
+  adToggler = !adToggler;
+  return adToggler;
 }

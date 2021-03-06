@@ -55,6 +55,7 @@ flutter:
   assets:
     - assets/imgs/top_bg.png
     - assets/imgs/sky.png
+    - assets/imgs/ad1.png
     - assets/imgs/moon.png
     - assets/imgs/card_background1.png
     - assets/imgs/card_background2.png
