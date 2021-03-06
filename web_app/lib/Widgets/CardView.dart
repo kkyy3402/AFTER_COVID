@@ -144,6 +144,8 @@ getImagedCardViewForMainScreen(CardItemModel cardItem, BuildContext context) {
 
     },
     child: Container(
+      width: 240,
+      height: 260,
       alignment: Alignment.center,
       child: Stack(
         children: [
@@ -227,8 +229,8 @@ getImagedCardViewForMainScreen(CardItemModel cardItem, BuildContext context) {
     },
     child: Container(
       alignment: Alignment.center,
-      width: 200,
-      height: 100,
+      width: 240,
+      height: 260,
       child: Image.asset("assets/imgs/ad_card.png")
 
     ),

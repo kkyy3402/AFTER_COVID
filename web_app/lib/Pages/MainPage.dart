@@ -343,9 +343,9 @@ class _MainPageState extends State<MainPage> {
                 child: Container(
                   alignment: Alignment.center,
                   child: Text(
-                      "After Covid-19",
+                    "After Covid-19",
                     style: TextStyle(
-                      color: Colors.white
+                        color: Colors.white
                     ),
                   ),
                 ),
@@ -390,8 +390,8 @@ class _MainPageState extends State<MainPage> {
               )
 
               ,Text(
-                "개의 소망이 모여",
-                style:
+                  "개의 소망이 모여",
+                  style:
                   GoogleFonts.nanumMyeongjo(
                       fontSize: 24,
                       fontWeight: FontWeight.bold
@@ -405,10 +405,10 @@ class _MainPageState extends State<MainPage> {
           SizedBox(height: 8),
 
           Text(
-            "애프터 코로나를 기원합니다.",
-            style: GoogleFonts.nanumMyeongjo(
-              fontSize: 24,
-            )
+              "애프터 코로나를 기원합니다.",
+              style: GoogleFonts.nanumMyeongjo(
+                fontSize: 24,
+              )
           ),
 
           SizedBox(
@@ -483,26 +483,14 @@ class _MainPageState extends State<MainPage> {
       columnCnt = 1;
     }
 
+    int rowCnt = (_cardItemList.length / columnCnt).toInt() ;
+    print("rowCnt : $rowCnt");
+
     return Container(
-        height: 1000,
-        width: 260 * columnCnt.toDouble(),
-        child: GridView.count(
-          shrinkWrap: true,
-          controller: _contentScrollController,
-          physics: BouncingScrollPhysics(),
-          crossAxisCount: columnCnt,
-          children: List.generate(_cardItemList.length, (index) {
-
-            return GestureDetector(
-              onTap: (){
-                //print("HHH");
-              },
-              child: getImagedCardViewForMainScreen(_cardItemList[index], context)
-            );
-
-
-          }),
-        )
+        alignment: Alignment.center,
+        height: rowCnt.toDouble() * 260,
+        width: 240 * columnCnt.toDouble() ,
+        child: getBottomCardRows(rowCnt, columnCnt)
     );
 
     /*
@@ -551,11 +539,11 @@ class _MainPageState extends State<MainPage> {
 
 
     var adItem = CardItemModel(
-      contents: "22222",
-      createdBy: "아재",
-      backgroundIdx: 0,
-      createdAt: "",
-      isAd: true
+        contents: "22222",
+        createdBy: "아재",
+        backgroundIdx: 0,
+        createdAt: "",
+        isAd: true
     );
 
     var rng = new Random();
@@ -714,12 +702,12 @@ class _MainPageState extends State<MainPage> {
           //reqInsertDiaryToSvr(colorIdx)
 
           showDialog(
-            context: context,
-            builder: (BuildContext context){
-              return EmailRegisterPopup(
-                item
-              );
-            }
+              context: context,
+              builder: (BuildContext context){
+                return EmailRegisterPopup(
+                    item
+                );
+              }
           ).then((item) {
             if(item != null){
               //print("item : ${item}");
@@ -779,6 +767,40 @@ class _MainPageState extends State<MainPage> {
     }
 
     return true;
+
+  }
+
+  Widget getBottomCardRows(int rowCnt, int columnCnt) {
+
+    return Column(
+      children: [
+
+        for(int rowIdx = 0 ; rowIdx < rowCnt ; rowIdx++)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for(int columnIdx = 0 ; columnIdx < columnCnt ; columnIdx++)
+                _cardItemList.length != 0 ? getImagedCardViewForMainScreen(_cardItemList[columnIdx + rowIdx * columnCnt], context) : Container()
+            ],
+          )
+      ],
+    );
+
+    /*
+    return Column(
+        children : List.generate(_cardItemList.length,(index){
+          return Row(
+            children: [
+              getImagedCardViewForMainScreen(_cardItemList[index], context),
+              getImagedCardViewForMainScreen(_cardItemList[index], context),
+              getImagedCardViewForMainScreen(_cardItemList[index], context),
+              getImagedCardViewForMainScreen(_cardItemList[index], context)
+            ],
+          );
+        })
+    );*/
+
+
 
   }
 
